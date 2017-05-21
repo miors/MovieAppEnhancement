@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">MovieApp</string>
     <string name="error_message">Failed to get results. Please try again</string>
-    <string name="sort_by_most_popular">Sort By Most Popular</string>
-    <string name="sort_by_top_rated">Sort By Top Rated</string>
+    <string name="activity_movie_detail_content_desc">Movie Detail Image</string>
+    <string name="movie_item_image">Movie Item Image</string>
+    <string name="user_rating">User Rating:</string>
+    <string name="release_date">Release Date:</string>
+    <string name="spinner_title">Spinner</string>
+    <string-array name="sort_array">
+        <item>Most Popular</item>
+        <item>Top Rated</item>
+    </string-array>
 </resources>

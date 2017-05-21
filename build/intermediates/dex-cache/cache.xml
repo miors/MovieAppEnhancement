@@ -3,30 +3,12 @@
 
     <item
         is-multidex="true"
-        jar="C:\udacity\project4\MovieApp1\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="C:\udacity\project4\MovieApp1\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_15e5719ca33e52c4c25c11eefa9c2ce76c7c9ec5\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\udacity\project\MovieApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="48edef7a44d89bf89e3530c74d126f0c17f4faee">
+        sha1="9f01d0f779a4416705ff509b1ac57185566e1e52">
         <dex dex="C:\udacity\project\MovieApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_cb6a3520bc7c649af00b8352cdff56edad36d6c5\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\udacity\project4\MovieApp1\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="00b11470537a77984fec82b2b2d8f78c2906828f">
-        <dex dex="C:\udacity\project4\MovieApp1\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_b28580a4d86faddd07ae70a86c21dfab23be8465\classes.dex" />
     </item>
     <item
         is-multidex="true"

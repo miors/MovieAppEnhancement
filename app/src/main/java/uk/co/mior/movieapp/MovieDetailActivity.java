@@ -9,12 +9,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    private TextView mMovieOriginalTitleTextView;
-    private TextView mMovieOverviewTextView;
-    private TextView mMovieVoteAverageTextView;
-    private TextView mMovieReleaseDateTextView;
-    private ImageView mMoviePosterPathImageView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +17,18 @@ public class MovieDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         MovieReturned movieReturned = (MovieReturned)intent.getSerializableExtra("movieDetailObject");
 
-        mMovieOriginalTitleTextView = (TextView) findViewById(R.id.tv_movie_original_title);
-        mMovieOverviewTextView = (TextView) findViewById(R.id.tv_movie_overview);
-        mMovieVoteAverageTextView = (TextView) findViewById(R.id.tv_movie_vote_average);
-        mMovieReleaseDateTextView = (TextView) findViewById(R.id.tv_movie_release_date);
-        mMoviePosterPathImageView = (ImageView) findViewById(R.id.iv_movie_poster_path);
+        TextView mMovieOriginalTitleTextView = (TextView) findViewById(R.id.tv_movie_original_title);
+        TextView mMovieOverviewTextView = (TextView) findViewById(R.id.tv_movie_overview);
+        TextView mMovieVoteAverageTextView = (TextView) findViewById(R.id.tv_movie_vote_average);
+        TextView mMovieReleaseDateTextView = (TextView) findViewById(R.id.tv_movie_release_date);
+        ImageView mMoviePosterPathImageView = (ImageView) findViewById(R.id.iv_movie_poster_path);
 
-        mMovieOriginalTitleTextView.setText(movieReturned.getOriginalTitle());
+        mMovieOriginalTitleTextView.setText(movieReturned.getTitle());
         mMovieOverviewTextView.setText(movieReturned.getOverview());
-        mMovieVoteAverageTextView.setText("User rating:" + movieReturned.getVoteAverage());
-        mMovieReleaseDateTextView.setText("Release date:" + movieReturned.getReleaseDate());
+        String rating = getResources().getString(R.string.user_rating) + movieReturned.getVoteAverage();
+        mMovieVoteAverageTextView.setText(rating);
+        String releaseDate = getResources().getString(R.string.release_date) + movieReturned.getReleaseDate();
+        mMovieReleaseDateTextView.setText(releaseDate);
         Picasso.with(this).load(movieReturned.getPosterPath()).into(mMoviePosterPathImageView);
     }
 }

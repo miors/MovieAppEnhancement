@@ -9,19 +9,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
-
-/**
- * Created by Mior on 15/05/2017.
- */
-
 public class NetworkUtils {
-    final static String THEMOVIEDB_BASE_URL = "http://api.themoviedb.org/3";
-    final static String ENDPOINT_POPULAR = "/movie/popular";
-    final static String ENDPOINT_TOP_RATED = "/movie/top_rated";
-    final static String API_KEY = "api_key";
-    final static String API_VALUE = "VALUE_OF_API_KEY_HERE";
+    private final static String THEMOVIEDB_BASE_URL = "http://api.themoviedb.org/3";
+    private final static String ENDPOINT_POPULAR = "/movie/popular";
+    private final static String ENDPOINT_TOP_RATED = "/movie/top_rated";
+    private final static String API_KEY = "api_key";
+    private final static String API_VALUE = "VALUE_OF_API_KEY_HERE";
 
-    public static URL buildUrl(String endpoint) throws IOException {
+    public static URL buildUrl(String endpoint){
         if (endpoint.equalsIgnoreCase("popular")){
             endpoint = ENDPOINT_POPULAR;
         } else if (endpoint.equalsIgnoreCase("top_rated")){
@@ -53,7 +48,7 @@ public class NetworkUtils {
         try {
             InputStream in = urlConnection.getInputStream();
 
-            Scanner scanner = new Scanner(in);
+                                                   Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
 
             boolean hasInput = scanner.hasNext();
@@ -62,7 +57,10 @@ public class NetworkUtils {
             } else {
                 return null;
             }
-        } finally {
+        }catch (Exception e){
+            return null;
+        }
+        finally {
             urlConnection.disconnect();
         }
     }

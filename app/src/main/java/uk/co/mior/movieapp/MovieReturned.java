@@ -2,25 +2,21 @@ package uk.co.mior.movieapp;
 
 import java.io.Serializable;
 
-/**
- * Created by Mior on 16/05/2017.
- */
-
 @SuppressWarnings("serial")
 public class MovieReturned implements Serializable {
 
-    private String originalTitle;
+    private String Title;
     private String posterPath;
     private String overview;
     private String voteAverage;
     private String releaseDate;
 
-    public String getOriginalTitle() {
-        return originalTitle;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
+    public void setTitle(String title) {
+        this.Title = title;
     }
 
     public String getPosterPath() {

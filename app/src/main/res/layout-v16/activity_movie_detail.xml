@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     >
 
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,6 +15,7 @@
 
     <TextView
         android:padding="10dp"
+        android:fontFamily="monospace"
         android:textSize="30sp"
         android:id="@+id/tv_movie_original_title"
         android:layout_width="match_parent"

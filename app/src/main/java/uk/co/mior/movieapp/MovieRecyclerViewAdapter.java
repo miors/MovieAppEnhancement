@@ -12,47 +12,26 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Mior on 15/05/2017.
- */
-
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder>{
 
     private List<MovieReturned> mData = new ArrayList<>();
-    private LayoutInflater mInflater;
+    final private LayoutInflater mInflater;
     final private ListItemClickListener mOnClickListener;
-
-    public List<MovieReturned> getData() {
-        return mData;
-    }
 
     public void setData(List<MovieReturned> data) {
         mData = data;
     }
 
-    public LayoutInflater getInflater() {
-        return mInflater;
-    }
-
-    public void setInflater(LayoutInflater inflater) {
-        mInflater = inflater;
-    }
-
-    public ListItemClickListener getOnClickListener() {
-        return mOnClickListener;
-    }
-
-    public MovieRecyclerViewAdapter(Context context, List<MovieReturned> data, ListItemClickListener listener) {
+    public MovieRecyclerViewAdapter(Context context, @SuppressWarnings("SameParameterValue") List<MovieReturned> mData, ListItemClickListener listener) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mData = mData;
         this.mOnClickListener = listener;
     }
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.movie_item, parent, false);
-        MovieViewHolder movieViewHolder = new MovieViewHolder(view);
-        return movieViewHolder;
+        return new MovieViewHolder(view);
     }
 
     @Override
@@ -68,7 +47,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public ImageView mMovieItem;
+        private final ImageView mMovieItem;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
