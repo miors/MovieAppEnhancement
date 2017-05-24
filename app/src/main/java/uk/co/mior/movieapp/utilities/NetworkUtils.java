@@ -37,6 +37,8 @@ public class NetworkUtils {
     }
 
     /**
+     * Attribute: Code from Udacity Android Developer Nanodegree Program
+     * Attribute: https://classroom.udacity.com/nanodegrees/nd801
      * This method returns the entire result from the HTTP response.
      *
      * @param url The URL to fetch the HTTP response from.
