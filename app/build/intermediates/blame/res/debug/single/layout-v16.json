@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\udacity\\project\\MovieApp\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Mior\\.android\\build-cache\\74eeccc803bb338b131b72dfe443e59e2132b200\\output\\res\\layout-v16\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "C:\\udacity\\project\\MovieApp\\app\\build\\intermediates\\res\\merged\\debug\\layout-v16\\activity_movie_detail.xml",
+        "source": "C:\\udacity\\project\\MovieApp\\app\\src\\main\\res\\layout-v16\\activity_movie_detail.xml"
+    }
+]

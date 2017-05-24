@@ -1,0 +1,115 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:2:1-37:12
+	package
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:3:11-40
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:5:5-66
+	android:name
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:5:22-64
+application
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:7:5-35:19
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Mior\.android\build-cache\74eeccc803bb338b131b72dfe443e59e2132b200\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Mior\.android\build-cache\72b611b8630e97cec9f43e0a84109788617b9b12\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Mior\.android\build-cache\74004d661a9ad4b78cbe8d12b29ca2b0742f60a8\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Mior\.android\build-cache\c94808f9162f97d1187974d33faf69697ed60293\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Mior\.android\build-cache\c637246769a999476baeaf0c5c3a735ea9af86bf\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Mior\.android\build-cache\084de3fc6a12c391665e4cbb8973f1c7f06a40bf\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Mior\.android\build-cache\6819d03eb7344c429d93230f15cc82f612952b53\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Mior\.android\build-cache\1930119fba5030671f4852e217522f4847b4a92a\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Mior\.android\build-cache\cec42e8252683e320247cd1f4eb84f8a14f5e33b\output\AndroidManifest.xml:29:5-20
+	android:label
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:11:9-41
+	android:supportsRtl
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:13:9-35
+	android:fullBackupContent
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:8:9-42
+	android:roundIcon
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:12:9-54
+	android:allowBackup
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:9:9-35
+	android:icon
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:10:9-43
+	android:theme
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:14:9-40
+activity#uk.co.mior.movieapp.MainActivity
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:15:9-31:20
+	android:name
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:15:19-47
+intent-filter#android.intent.action.MAIN+android.intent.action.VIEW+android.intent.category.BROWSABLE+android.intent.category.DEFAULT+android.intent.category.LAUNCHER
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:16:13-30:29
+action#android.intent.action.MAIN
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:17:17-68
+	android:name
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:17:25-66
+action#android.intent.action.VIEW
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:19:17-69
+	android:name
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:19:25-66
+category#android.intent.category.DEFAULT
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:21:17-76
+	android:name
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:21:27-73
+category#android.intent.category.BROWSABLE
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:22:17-78
+	android:name
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:22:27-75
+data
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:25:17-27:69
+	android:host
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:26:21-57
+	android:scheme
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:27:21-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:29:17-76
+	android:name
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:29:27-74
+activity#uk.co.mior.movieapp.MovieDetailActivity
+ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:32:9-34:20
+	android:name
+		ADDED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml:32:19-54
+uses-sdk
+INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Mior\.android\build-cache\74eeccc803bb338b131b72dfe443e59e2132b200\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Mior\.android\build-cache\72b611b8630e97cec9f43e0a84109788617b9b12\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Mior\.android\build-cache\74004d661a9ad4b78cbe8d12b29ca2b0742f60a8\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Mior\.android\build-cache\c94808f9162f97d1187974d33faf69697ed60293\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Mior\.android\build-cache\c637246769a999476baeaf0c5c3a735ea9af86bf\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Mior\.android\build-cache\084de3fc6a12c391665e4cbb8973f1c7f06a40bf\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Mior\.android\build-cache\6819d03eb7344c429d93230f15cc82f612952b53\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\Mior\.android\build-cache\569ba34b94b7610722ac552f4e9d3514aa941ce0\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Mior\.android\build-cache\1930119fba5030671f4852e217522f4847b4a92a\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Mior\.android\build-cache\cec42e8252683e320247cd1f4eb84f8a14f5e33b\output\AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Mior\.android\build-cache\74eeccc803bb338b131b72dfe443e59e2132b200\output\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\udacity\project\MovieApp\app\src\main\AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Mior\.android\build-cache\74eeccc803bb338b131b72dfe443e59e2132b200\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Mior\.android\build-cache\72b611b8630e97cec9f43e0a84109788617b9b12\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Mior\.android\build-cache\74004d661a9ad4b78cbe8d12b29ca2b0742f60a8\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Mior\.android\build-cache\c94808f9162f97d1187974d33faf69697ed60293\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Mior\.android\build-cache\c637246769a999476baeaf0c5c3a735ea9af86bf\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\Mior\.android\build-cache\084de3fc6a12c391665e4cbb8973f1c7f06a40bf\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\Mior\.android\build-cache\6819d03eb7344c429d93230f15cc82f612952b53\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\Mior\.android\build-cache\569ba34b94b7610722ac552f4e9d3514aa941ce0\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Mior\.android\build-cache\1930119fba5030671f4852e217522f4847b4a92a\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Mior\.android\build-cache\cec42e8252683e320247cd1f4eb84f8a14f5e33b\output\AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Mior\.android\build-cache\74eeccc803bb338b131b72dfe443e59e2132b200\output\AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:appcompat-v7:25.3.1] C:\Users\Mior\.android\build-cache\74eeccc803bb338b131b72dfe443e59e2132b200\output\AndroidManifest.xml:26:9-47
