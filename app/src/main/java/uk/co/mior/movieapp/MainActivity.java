@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.URL;
 import java.util.List;
@@ -137,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements  MovieRecyclerVie
     private void showErrorMessage(){
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.INVISIBLE);
+        Toast.makeText(this, "Please check internet connection!",
+                Toast.LENGTH_LONG).show();
         Log.d(TAG, "showErrorMessage: is shown");
     }
 }
