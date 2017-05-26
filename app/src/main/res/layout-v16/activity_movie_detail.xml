@@ -5,54 +5,55 @@
     android:layout_width="match_parent"
     >
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="uk.co.mior.movieapp.MovieDetailActivity">
 
-    <TextView
-        android:padding="10dp"
-        android:fontFamily="monospace"
-        android:textSize="30sp"
-        android:id="@+id/tv_movie_original_title"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:padding="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:textSize="20sp"
-        android:id="@+id/tv_movie_overview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textSize="15sp"
-        android:id="@+id/tv_movie_vote_average"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textSize="15sp"
-        android:id="@+id/tv_movie_release_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:context="uk.co.mior.movieapp.MovieDetailActivity">
 
-    <ImageView
-        android:contentDescription="@string/activity_movie_detail_content_desc"
-        android:layout_margin="10dp"
-        android:id="@+id/iv_movie_poster_path"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        />
-</LinearLayout>
+        <TextView
+            android:fontFamily="monospace"
+            android:padding="@dimen/padding_medium"
+            android:textSize="@dimen/textSize_large"
+            android:id="@+id/tv_movie_original_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:padding="10dp"
+            android:layout_marginTop="@dimen/layoutMargin_small"
+            android:layout_marginBottom="@dimen/layoutMargin_small"
+            android:textSize="@dimen/textSize_medium"
+            android:id="@+id/tv_movie_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingStart="@dimen/padding_medium"
+            android:paddingEnd="@dimen/padding_medium"
+            android:paddingLeft="@dimen/padding_medium"
+            android:paddingRight="@dimen/padding_medium"
+            android:textSize="@dimen/textSize_medium"
+            android:id="@+id/tv_movie_vote_average"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingStart="@dimen/padding_medium"
+            android:paddingEnd="@dimen/padding_medium"
+            android:paddingLeft="@dimen/padding_medium"
+            android:paddingRight="@dimen/padding_medium"
+            android:textSize="@dimen/textSize_medium"
+            android:id="@+id/tv_movie_release_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:contentDescription="@string/activity_movie_detail_content_desc"
+            android:layout_margin="@dimen/layoutMargin_small"
+            android:id="@+id/iv_movie_poster_path"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height"
+            />
+    </LinearLayout>
 </ScrollView>

@@ -50,7 +50,7 @@ public class NetworkUtils {
         try {
             InputStream in = urlConnection.getInputStream();
 
-                                                   Scanner scanner = new Scanner(in);
+            Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
 
             boolean hasInput = scanner.hasNext();

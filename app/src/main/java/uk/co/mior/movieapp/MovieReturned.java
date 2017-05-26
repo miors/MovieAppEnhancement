@@ -1,22 +1,22 @@
 package uk.co.mior.movieapp;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-@SuppressWarnings("serial")
-public class MovieReturned implements Serializable {
+public class MovieReturned implements Parcelable {
 
-    private String Title;
+    private String title;
     private String posterPath;
     private String overview;
-    private String voteAverage;
+    private double voteAverage;
     private String releaseDate;
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        this.Title = title;
+        this.title = title;
     }
 
     public String getPosterPath() {
@@ -35,11 +35,11 @@ public class MovieReturned implements Serializable {
         this.overview = overview;
     }
 
-    public String getVoteAverage() {
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(String voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -50,4 +50,47 @@ public class MovieReturned implements Serializable {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(posterPath);
+        dest.writeString(overview);
+        dest.writeDouble(voteAverage);
+        dest.writeString(releaseDate);
+    }
+
+    public MovieReturned(String title, String posterPath, String overview, double voteAverage, String releaseDate) {
+        this.title = title;
+        this.posterPath = posterPath;
+        this.overview = overview;
+        this.voteAverage = voteAverage;
+        this.releaseDate = releaseDate;
+    }
+
+    protected MovieReturned(Parcel in) {
+        this.title = in.readString();
+        this.posterPath = in.readString();
+        this.overview = in.readString();
+        this.voteAverage = in.readDouble();
+        this.releaseDate = in.readString();
+    }
+
+    public static final Creator<MovieReturned> CREATOR = new Creator<MovieReturned>() {
+        @Override
+        public MovieReturned createFromParcel(Parcel in) {
+            return new MovieReturned(in);
+        }
+
+        @Override
+        public MovieReturned[] newArray(int size) {
+            return new MovieReturned[size];
+        }
+    };
+
 }

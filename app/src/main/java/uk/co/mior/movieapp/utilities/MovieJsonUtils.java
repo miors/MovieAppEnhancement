@@ -24,17 +24,13 @@ public class MovieJsonUtils {
             String title = eachMovie.getString("title");
             String posterPath = eachMovie.getString("poster_path");
             String overview = eachMovie.getString("overview");
-            String voteAverage = eachMovie.getString("vote_average");
+            double voteAverage = eachMovie.getDouble("vote_average");
             String releaseDate = eachMovie.getString("release_date");
 
             String BASE_URL = "http://image.tmdb.org/t/p/w185";
 
-            parsedMovieData.add(i, new MovieReturned());
-            parsedMovieData.get(i).setTitle(title);
-            parsedMovieData.get(i).setPosterPath(BASE_URL + posterPath);
-            parsedMovieData.get(i).setOverview(overview);
-            parsedMovieData.get(i).setVoteAverage(voteAverage);
-            parsedMovieData.get(i).setReleaseDate(releaseDate);
+            parsedMovieData.add(i, new MovieReturned(title, BASE_URL + posterPath,
+                    overview, voteAverage, releaseDate));
         }
         return parsedMovieData;
     }
