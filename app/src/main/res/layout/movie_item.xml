@@ -7,8 +7,9 @@
     <ImageView
         android:contentDescription="@string/movie_item_image"
         android:id="@+id/iv_movie_item"
-        android:layout_width="200dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:padding="1dp"
         />
 
