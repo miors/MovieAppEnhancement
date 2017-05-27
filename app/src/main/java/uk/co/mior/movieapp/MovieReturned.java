@@ -5,50 +5,30 @@ import android.os.Parcelable;
 
 public class MovieReturned implements Parcelable {
 
-    private String title;
-    private String posterPath;
-    private String overview;
-    private double voteAverage;
-    private String releaseDate;
+    private final String title;
+    private final String posterPath;
+    private final String overview;
+    private final double voteAverage;
+    private final String releaseDate;
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getPosterPath() {
         return posterPath;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
     public String getOverview() {
         return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
     }
 
     public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(double voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
     public String getReleaseDate() {
         return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
     }
 
     @Override
@@ -73,7 +53,7 @@ public class MovieReturned implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-    protected MovieReturned(Parcel in) {
+    private MovieReturned(Parcel in) {
         this.title = in.readString();
         this.posterPath = in.readString();
         this.overview = in.readString();

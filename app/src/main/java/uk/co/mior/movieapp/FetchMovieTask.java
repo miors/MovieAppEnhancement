@@ -9,10 +9,10 @@ import java.util.List;
 import uk.co.mior.movieapp.utilities.MovieJsonUtils;
 import uk.co.mior.movieapp.utilities.NetworkUtils;
 
-public class FetchMovieTask extends AsyncTask<String, Void, List<MovieReturned>> {
+class FetchMovieTask extends AsyncTask<String, Void, List<MovieReturned>> {
 
-    Context context;
-    AsyncTaskCompleteListener<List<MovieReturned>> listener;
+    private final Context context;
+    private final AsyncTaskCompleteListener<List<MovieReturned>> listener;
 
     public FetchMovieTask(Context ctx, AsyncTaskCompleteListener<List<MovieReturned>> listener)
     {

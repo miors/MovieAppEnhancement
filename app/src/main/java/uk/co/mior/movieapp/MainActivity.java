@@ -2,12 +2,12 @@ package uk.co.mior.movieapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.res.Configuration;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,11 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URL;
 import java.util.List;
 
-import uk.co.mior.movieapp.utilities.MovieJsonUtils;
-import uk.co.mior.movieapp.utilities.NetworkUtils;
 
 public class MainActivity extends AppCompatActivity implements  MovieRecyclerViewAdapter.ListItemClickListener, AdapterView.OnItemSelectedListener{
 
@@ -79,8 +76,16 @@ public class MainActivity extends AppCompatActivity implements  MovieRecyclerVie
             mMovieData = result;
             if (result != null) {
                 mAdapter.setData(result);
-                int numberOfColumns = 2;
-                mRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, numberOfColumns));
+                int numberOfColumnsPortrait = 2;
+                int numberOfColumnsLandscape = 3;
+
+                if(MainActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                    mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(numberOfColumnsPortrait, 1));
+                }
+                else{
+                    mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(numberOfColumnsLandscape, 1));
+                }
+
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setAdapter(mAdapter);
                 showRecyclerView();
