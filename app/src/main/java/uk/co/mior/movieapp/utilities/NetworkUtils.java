@@ -9,12 +9,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+import uk.co.mior.movieapp.BuildConfig;
+
 public class NetworkUtils {
     private final static String THEMOVIEDB_BASE_URL = "http://api.themoviedb.org/3";
     private final static String ENDPOINT_POPULAR = "/movie/popular";
     private final static String ENDPOINT_TOP_RATED = "/movie/top_rated";
     private final static String API_KEY = "api_key";
-    private final static String API_VALUE = "VALUE_OF_API_KEY_HERE";
+    //private final static String API_VALUE = "VALUE_OF_API_KEY_HERE";
+    private final static String API_VALUE = BuildConfig.THE_MOVIE_DB_API_TOKEN;
 
     public static URL buildUrl(String endpoint){
         if (endpoint.equalsIgnoreCase("popular")){

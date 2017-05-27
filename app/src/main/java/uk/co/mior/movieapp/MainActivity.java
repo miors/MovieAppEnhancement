@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity implements  MovieRecyclerVie
         mMovieData = null;
         if (parent.getItemAtPosition(position).toString().equalsIgnoreCase("Most Popular")){
             Log.d(TAG, "onItemSelected: Fetching most popular movies");
-            new FetchMovieTask().execute("popular");
+            new FetchMovieTask(this, new FetchMyDataTaskCompleteListener()).execute("popular");
         } else if (parent.getItemAtPosition(position).toString().equalsIgnoreCase("Top Rated")){
             Log.d(TAG, "onItemSelected: Fetching top rated movies");
-            new FetchMovieTask().execute("top_rated");
+            new FetchMovieTask(this, new FetchMyDataTaskCompleteListener()).execute("top_rated");
         } else {
             showErrorMessage();
         }
@@ -69,19 +69,16 @@ public class MainActivity extends AppCompatActivity implements  MovieRecyclerVie
 
     }
 
-    private class FetchMovieTask extends AsyncTask<String, Void, List<MovieReturned>> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
+    public class FetchMyDataTaskCompleteListener implements AsyncTaskCompleteListener<List<MovieReturned>>
+    {
 
         @Override
-        protected void onPostExecute(List<MovieReturned> movieData) {
+        public void onTaskComplete(List<MovieReturned> result)
+        {
             mProgressBar.setVisibility(View.INVISIBLE);
-            mMovieData = movieData;
-            if (movieData != null) {
-                mAdapter.setData(movieData);
+            mMovieData = result;
+            if (result != null) {
+                mAdapter.setData(result);
                 int numberOfColumns = 2;
                 mRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, numberOfColumns));
                 mRecyclerView.setHasFixedSize(true);
@@ -93,21 +90,11 @@ public class MainActivity extends AppCompatActivity implements  MovieRecyclerVie
         }
 
         @Override
-        protected List<MovieReturned> doInBackground(String... params) {
-
-            try {
-                URL movieRequestUrl = NetworkUtils.buildUrl(params[0]);
-                String jsonMovieResponse = NetworkUtils
-                        .getResponseFromHttpUrl( movieRequestUrl);
-
-                return MovieJsonUtils
-                        .getMovieObjectsFromJson(jsonMovieResponse);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
+        public void onTaskStart() {
+            mProgressBar.setVisibility(View.VISIBLE);
         }
     }
+
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
