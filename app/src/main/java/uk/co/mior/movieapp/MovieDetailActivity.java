@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -226,24 +227,26 @@ public class MovieDetailActivity extends AppCompatActivity{
     public void onClickAddFavouriteMovie(View view) {
         //NEED TO CHECK IF id is already in DB first
 
+
         ContentValues contentValues = new ContentValues();
 
-//        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_TITLE, movieReturned.getTitle());
-//        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_POSTERPATH, movieReturned.getPosterPath());
-//        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_OVERVIEW, movieReturned.getOverview());
-//        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_VOTEAVERAGE, movieReturned.getVoteAverage());
-//        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_RELEASEDATE, movieReturned.getReleaseDate());
-//        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_ID, movieReturned.getId());
-
+        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_TITLE, movieReturned.getTitle());
+        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_POSTERPATH, movieReturned.getPosterPath());
+        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_OVERVIEW, movieReturned.getOverview());
+        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_VOTEAVERAGE, movieReturned.getVoteAverage());
+        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_RELEASEDATE, movieReturned.getReleaseDate());
         contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_ID, movieReturned.getId());
+
+//        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_ID, movieReturned.getId());
 
         //insert favourite movie
         Uri uri = getContentResolver().insert(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI, contentValues);
 
         if (uri != null){
             Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+            ((Button) view).setText("In Favourite");
         }
 
-        finish();
+        //finish();
     }
 }
