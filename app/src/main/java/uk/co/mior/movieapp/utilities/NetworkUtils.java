@@ -18,6 +18,8 @@ public class NetworkUtils {
     private final static String API_KEY = "api_key";
     //private final static String API_VALUE = "VALUE_OF_API_KEY_HERE";
     private final static String API_VALUE = BuildConfig.THE_MOVIE_DB_API_TOKEN;
+    private static final String TRAILER = "trailer";
+    private static final String REVIEWS = "reviews";
 
     public static URL buildUrl(String endpoint){
         if (endpoint.equalsIgnoreCase("popular")){
@@ -29,6 +31,26 @@ public class NetworkUtils {
                 .appendQueryParameter(API_KEY, API_VALUE)
                 .build();
 
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    public static URL buildTrailerOrReviewUrl(int id, String trailerOrReview){
+        String placeholder = null;
+        if (trailerOrReview == TRAILER){
+            placeholder = "/videos";
+        } else if (trailerOrReview == REVIEWS){
+            placeholder = "/reviews";
+        }
+        Uri builtUri = Uri.parse(THEMOVIEDB_BASE_URL+"/movie/"+id+placeholder).buildUpon()
+                .appendQueryParameter(API_KEY, API_VALUE)
+                .build();
         URL url = null;
         try {
             url = new URL(builtUri.toString());

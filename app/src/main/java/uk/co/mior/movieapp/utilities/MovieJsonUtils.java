@@ -8,8 +8,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.mior.movieapp.MovieReturned;
+import uk.co.mior.movieapp.Reviews;
 
 public class MovieJsonUtils {
+
+    public static String getYoutubeTrailer(String trailerJsonStr) throws JSONException {
+        JSONObject trailers = new JSONObject(trailerJsonStr);
+        JSONArray trailerArray = trailers.getJSONArray("results");
+        for (int i = 0; i < trailerArray.length(); i++) {
+            /* Get the JSON object representing each index */
+            JSONObject eachMovie = trailerArray.getJSONObject(i);
+
+            String type = eachMovie.getString("type");
+            if (type.equalsIgnoreCase("Trailer")){
+                String key = eachMovie.getString("key");
+                return key;
+            } else {
+                continue;
+            }
+        }
+        return null;
+    }
+
+    public static List<Reviews> getReviewsList(String reviewJsonStr) throws JSONException {
+        List<Reviews> parsedReviewData = new ArrayList<>();
+        JSONObject reviews = new JSONObject(reviewJsonStr);
+        JSONArray reviewArray = reviews.getJSONArray("results");
+        for (int i = 0; i < reviewArray.length(); i++) {
+            JSONObject eachReview = reviewArray.getJSONObject(i);
+            String author = eachReview.getString("author");
+            String content = eachReview.getString("content");
+
+            parsedReviewData.add(i, new Reviews(author, content));
+        }
+        return parsedReviewData;
+    }
 
     public static List<MovieReturned> getMovieObjectsFromJson(String movieJsonStr) throws JSONException {
         List<MovieReturned> parsedMovieData = new ArrayList<>();
@@ -26,11 +59,12 @@ public class MovieJsonUtils {
             String overview = eachMovie.getString("overview");
             double voteAverage = eachMovie.getDouble("vote_average");
             String releaseDate = eachMovie.getString("release_date");
+            int id = eachMovie.getInt("id");
 
             String BASE_URL = "http://image.tmdb.org/t/p/w185";
 
             parsedMovieData.add(i, new MovieReturned(title, BASE_URL + posterPath,
-                    overview, voteAverage, releaseDate));
+                    overview, voteAverage, releaseDate, id));
         }
         return parsedMovieData;
     }

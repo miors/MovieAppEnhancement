@@ -1,11 +1,16 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name">Movies Info 4 U</string>
     <string name="error_message">Failed to get results. Check internet connection and please try again</string>
     <string name="activity_movie_detail_content_desc">Movie Detail Image</string>
     <string name="movie_item_image">Movie Item Image</string>
     <string name="user_rating">User Rating:</string>
     <string name="release_date">Release Date:</string>
     <string name="spinner_title">Spinner</string>
+    <string name="movie_overview">Movie Overview</string>
+    <string name="average_vote">Average Vote</string>
+    <string name="movie_trailer">View Trailer</string>
+    <string name="reviews">Read Reviews</string>
+    <string name="MovieDetail">Movie Detail</string>
     <string-array name="sort_array">
         <item>Most Popular</item>
         <item>Top Rated</item>

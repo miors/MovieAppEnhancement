@@ -10,6 +10,7 @@ public class MovieReturned implements Parcelable {
     private final String overview;
     private final double voteAverage;
     private final String releaseDate;
+    private final int id;
 
     public String getTitle() {
         return title;
@@ -31,6 +32,10 @@ public class MovieReturned implements Parcelable {
         return releaseDate;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -43,14 +48,16 @@ public class MovieReturned implements Parcelable {
         dest.writeString(overview);
         dest.writeDouble(voteAverage);
         dest.writeString(releaseDate);
+        dest.writeInt(id);
     }
 
-    public MovieReturned(String title, String posterPath, String overview, double voteAverage, String releaseDate) {
+    public MovieReturned(String title, String posterPath, String overview, double voteAverage, String releaseDate, int id) {
         this.title = title;
         this.posterPath = posterPath;
         this.overview = overview;
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
+        this.id = id;
     }
 
     private MovieReturned(Parcel in) {
@@ -59,6 +66,7 @@ public class MovieReturned implements Parcelable {
         this.overview = in.readString();
         this.voteAverage = in.readDouble();
         this.releaseDate = in.readString();
+        this.id = in.readInt();
     }
 
     public static final Creator<MovieReturned> CREATOR = new Creator<MovieReturned>() {
