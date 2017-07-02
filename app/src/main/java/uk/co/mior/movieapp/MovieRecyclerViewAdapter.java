@@ -38,7 +38,8 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         MovieReturned movieData = mData.get(position);
         Context context = holder.mMovieItem.getContext();
-        Picasso.with(context).load(movieData.getPosterPath()).into(holder.mMovieItem);
+        String BASE_URL = "http://image.tmdb.org/t/p/w185";
+        Picasso.with(context).load(BASE_URL + movieData.getPosterPath()).into(holder.mMovieItem);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-            mMovieItem = (ImageView) itemView.findViewById(R.id.iv_movie_item);
+            mMovieItem = itemView.findViewById(R.id.iv_movie_item);
             itemView.setOnClickListener(this);
         }
 

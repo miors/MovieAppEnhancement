@@ -21,10 +21,7 @@ public class MovieJsonUtils {
 
             String type = eachMovie.getString("type");
             if (type.equalsIgnoreCase("Trailer")){
-                String key = eachMovie.getString("key");
-                return key;
-            } else {
-                continue;
+                return eachMovie.getString("key");
             }
         }
         return null;
@@ -61,9 +58,9 @@ public class MovieJsonUtils {
             String releaseDate = eachMovie.getString("release_date");
             int id = eachMovie.getInt("id");
 
-            String BASE_URL = "http://image.tmdb.org/t/p/w185";
+            //String BASE_URL = "http://image.tmdb.org/t/p/w185";
 
-            parsedMovieData.add(i, new MovieReturned(title, BASE_URL + posterPath,
+            parsedMovieData.add(i, new MovieReturned(title, posterPath,
                     overview, voteAverage, releaseDate, id));
         }
         return parsedMovieData;

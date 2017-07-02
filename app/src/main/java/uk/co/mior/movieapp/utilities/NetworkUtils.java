@@ -16,7 +16,6 @@ public class NetworkUtils {
     private final static String ENDPOINT_POPULAR = "/movie/popular";
     private final static String ENDPOINT_TOP_RATED = "/movie/top_rated";
     private final static String API_KEY = "api_key";
-    //private final static String API_VALUE = "VALUE_OF_API_KEY_HERE";
     private final static String API_VALUE = BuildConfig.THE_MOVIE_DB_API_TOKEN;
     private static final String TRAILER = "trailer";
     private static final String REVIEWS = "reviews";
@@ -43,9 +42,9 @@ public class NetworkUtils {
 
     public static URL buildTrailerOrReviewUrl(int id, String trailerOrReview){
         String placeholder = null;
-        if (trailerOrReview == TRAILER){
+        if (trailerOrReview.equalsIgnoreCase(TRAILER)){
             placeholder = "/videos";
-        } else if (trailerOrReview == REVIEWS){
+        } else if (trailerOrReview.equalsIgnoreCase(REVIEWS)){
             placeholder = "/reviews";
         }
         Uri builtUri = Uri.parse(THEMOVIEDB_BASE_URL+"/movie/"+id+placeholder).buildUpon()

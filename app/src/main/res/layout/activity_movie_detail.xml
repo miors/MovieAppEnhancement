@@ -19,8 +19,8 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="@dimen/expanded_title_margin_start"
+            app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
             android:fitsSystemWindows="true">
 
             <ImageView
@@ -42,9 +42,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -59,8 +56,8 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:cardElevation="6dp"
+                android:layout_marginTop="@dimen/cardview_layout_margin_top"
+                app:cardElevation="@dimen/cardview_card_elevation"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -73,16 +70,16 @@
                         android:id="@+id/tv_movie_original_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginLeft="@dimen/textview_layout_margin"
+                        android:layout_marginRight="@dimen/textview_layout_margin"
+                        android:layout_marginTop="@dimen/textview_layout_margin"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
                     <TextView
                         android:id="@+id/tv_movie_overview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
+                        android:layout_margin="@dimen/textview_layout_margin"
                         android:text="@string/movie_overview"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -90,7 +87,7 @@
                         android:id="@+id/tv_movie_vote_average"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
+                        android:layout_margin="@dimen/textview_layout_margin"
                         android:text="@string/average_vote"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
@@ -98,15 +95,25 @@
                         android:id="@+id/tv_movie_release_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
+                        android:layout_margin="@dimen/textview_layout_margin"
                         android:text="@string/release_date"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+                    <Button
+                        android:id="@+id/favouriteButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:background="@color/colorPrimary"
+                        android:onClick="onClickAddFavouriteMovie"
+                        android:text="@string/add_to_favourite"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
                     <TextView
                         android:id="@+id/tv_movie_trailer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
+                        android:layout_margin="@dimen/textview_layout_margin"
                         android:text="@string/movie_trailer"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
@@ -114,19 +121,10 @@
                         android:id="@+id/tv_movie_reviews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
+                        android:layout_margin="@dimen/textview_layout_margin"
                         android:text="@string/reviews"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
-                <Button
-                    android:id="@+id/favouriteButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/primary_text_dark"
-                    android:background="@color/colorPrimary"
-                    android:onClick="onClickAddFavouriteMovie"
-                    android:text="Add to favourite"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
 
                 </LinearLayout>

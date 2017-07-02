@@ -1,8 +1,8 @@
 package uk.co.mior.movieapp;
 
 public class Reviews {
-    private String author;
-    private String content;
+    private final String author;
+    private final String content;
 
     public Reviews(String author, String content) {
         this.author = author;
@@ -13,15 +13,7 @@ public class Reviews {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 }

@@ -14,8 +14,8 @@
 
     <TextView
         android:visibility="invisible"
-        android:padding="16dp"
-        android:textSize="22sp"
+        android:padding="@dimen/padding_medium"
+        android:textSize="@dimen/textSize_medium"
         android:text="@string/error_message"
         android:id="@+id/tv_error_message_display"
         android:layout_width="match_parent"
@@ -23,8 +23,8 @@
 
     <ProgressBar
         android:id="@+id/pb_progress"
-        android:layout_height="42dp"
-        android:layout_width="42dp"
+        android:layout_height="@dimen/layout_height_progressbar"
+        android:layout_width="@dimen/layout_width_progressbar"
         android:layout_gravity="center"
         android:visibility="invisible" />
 

@@ -6,7 +6,7 @@ import android.provider.BaseColumns;
 public class FavouriteMovieContract {
 
     public static final String AUTHORITY = "uk.co.mior.movieapp";
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
     public static final String PATH_FAVOURITE_MOVIES = "favourite_movies";
 
     public static final class FavouriteMovieEntry implements BaseColumns{

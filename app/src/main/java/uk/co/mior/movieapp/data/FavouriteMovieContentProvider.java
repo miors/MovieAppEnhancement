@@ -15,13 +15,13 @@ import static uk.co.mior.movieapp.data.FavouriteMovieContract.FavouriteMovieEntr
 
 public class FavouriteMovieContentProvider extends ContentProvider {
 
-    public static final int FAVOURITE_MOVIES = 100;
-    public static final int FAVOURITE_MOVIE_WITH_ID = 101;
+    private static final int FAVOURITE_MOVIES = 100;
+    private static final int FAVOURITE_MOVIE_WITH_ID = 101;
     private FavouriteMovieDbHelper mFavouriteMovieDbHelper;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
 
-    public static UriMatcher buildUriMatcher() {
+    private static UriMatcher buildUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         // directory
@@ -42,7 +42,42 @@ public class FavouriteMovieContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        return null;
+        final SQLiteDatabase db = mFavouriteMovieDbHelper.getReadableDatabase();
+        int match = sUriMatcher.match(uri);
+
+        Cursor retCursor;
+
+        switch (match) {
+            case FAVOURITE_MOVIES:
+                retCursor = db.query(TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            //add a case to query for a single row of data by movie ID
+            case FAVOURITE_MOVIE_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                String mSelection = "id=?";
+                String[] mSelectionArgs = new String[]{id};
+
+                retCursor = db.query(TABLE_NAME,
+                        projection,
+                        mSelection,
+                        mSelectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+        //noinspection ConstantConditions
+        retCursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return retCursor;
     }
 
     @Nullable
@@ -76,6 +111,7 @@ public class FavouriteMovieContentProvider extends ContentProvider {
         }
 
         // Notify the resolver if the uri has been changed
+        //noinspection ConstantConditions
         getContext().getContentResolver().notifyChange(uri, null);
 
         return returnUri;
@@ -83,7 +119,26 @@ public class FavouriteMovieContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        final SQLiteDatabase db = mFavouriteMovieDbHelper.getWritableDatabase();
+
+        int match = sUriMatcher.match(uri);
+        int tasksDeleted;
+
+        switch (match) {
+            case FAVOURITE_MOVIE_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(TABLE_NAME, "id=?", new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (tasksDeleted != 0) {
+            //noinspection ConstantConditions
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return tasksDeleted;
     }
 
     @Override

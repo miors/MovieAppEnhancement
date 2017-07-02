@@ -11,8 +11,14 @@
     <string name="movie_trailer">View Trailer</string>
     <string name="reviews">Read Reviews</string>
     <string name="MovieDetail">Movie Detail</string>
+    <string name="add_to_favourite">Add to favourite</string>
+    <string name="remove_from_favourite">Remove from Favourite</string>
+    <string name="internet_error">Possible intenet connection issue!</string>
+    <string name="no_result">No result to display</string>
+    <string name="no_review_available">No review available</string>
     <string-array name="sort_array">
         <item>Most Popular</item>
         <item>Top Rated</item>
+        <item>My Favourite</item>
     </string-array>
 </resources>
