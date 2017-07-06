@@ -1,4 +1,4 @@
 # MovieApp
- Before running the app, please use your own TMDB API key value by replacing VALUE_OF_API_KEY_HERE in NetworkUtils.java file for the following variable
+ Before running the app, please use your own TMDB API key value by replacing BuildConfig.THE_MOVIE_DB_API_TOKEN in NetworkUtils.java file for the following variable
  
- final static String API_VALUE = "VALUE_OF_API_KEY_HERE";
+ private final static String API_VALUE = BuildConfig.THE_MOVIE_DB_API_TOKEN;
