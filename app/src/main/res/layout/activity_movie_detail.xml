@@ -145,9 +145,7 @@
                         android:layout_margin="@dimen/textview_layout_margin"
                         android:text="@string/reviews"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-
-
-
+                    
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
