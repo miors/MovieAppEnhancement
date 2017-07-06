@@ -31,10 +31,6 @@ class FavouriteMovieDbHelper extends SQLiteOpenHelper {
                 FavouriteMovieEntry.COLUMN_RELEASEDATE + " TEXT NOT NULL, " +
                 FavouriteMovieEntry.COLUMN_ID + " INTEGER NOT NULL);";
 
-//        final String CREATE_TABLE = "CREATE TABLE " + FavouriteMovieEntry.TABLE_NAME + " (" +
-//                FavouriteMovieEntry._ID + " INTEGER PRIMARY KEY, " +
-//                FavouriteMovieEntry.COLUMN_ID + " INTEGER NOT NULL);";
-
         db.execSQL(CREATE_TABLE);
     }
 

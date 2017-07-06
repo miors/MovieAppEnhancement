@@ -6,8 +6,12 @@
         android:id="@+id/spinner"
         android:title="@string/spinner_title"
         app:actionViewClass="android.widget.Spinner"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         />
+    <item
+        android:id="@+id/menu_refresh"
+        app:showAsAction="never"
+        android:title="@string/menu_refresh"/>
 
 </menu>
 

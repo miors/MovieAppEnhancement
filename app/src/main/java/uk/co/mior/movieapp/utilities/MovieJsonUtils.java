@@ -12,7 +12,9 @@ import uk.co.mior.movieapp.Reviews;
 
 public class MovieJsonUtils {
 
-    public static String getYoutubeTrailer(String trailerJsonStr) throws JSONException {
+    public static List<String> getYoutubeTrailer(String trailerJsonStr) throws JSONException {
+        List<String> youtubeKeys = new ArrayList<>();
+
         JSONObject trailers = new JSONObject(trailerJsonStr);
         JSONArray trailerArray = trailers.getJSONArray("results");
         for (int i = 0; i < trailerArray.length(); i++) {
@@ -21,10 +23,10 @@ public class MovieJsonUtils {
 
             String type = eachMovie.getString("type");
             if (type.equalsIgnoreCase("Trailer")){
-                return eachMovie.getString("key");
+                youtubeKeys.add(eachMovie.getString("key"));
             }
         }
-        return null;
+        return youtubeKeys;
     }
 
     public static List<Reviews> getReviewsList(String reviewJsonStr) throws JSONException {

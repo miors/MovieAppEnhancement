@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,26 +7,34 @@
     android:layout_height="match_parent"
     tools:context="uk.co.mior.movieapp.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_movies"
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_movies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
-        android:visibility="invisible"
-        android:padding="@dimen/padding_medium"
-        android:textSize="@dimen/textSize_medium"
-        android:text="@string/error_message"
         android:id="@+id/tv_error_message_display"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/error_message"
+        android:textSize="@dimen/textSize_medium"
+        android:visibility="invisible"/>
 
     <ProgressBar
         android:id="@+id/pb_progress"
-        android:layout_height="@dimen/layout_height_progressbar"
         android:layout_width="@dimen/layout_width_progressbar"
+        android:layout_height="@dimen/layout_height_progressbar"
         android:layout_gravity="center"
-        android:visibility="invisible" />
+        android:visibility="invisible"/>
 
 </merge>

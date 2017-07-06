@@ -95,10 +95,10 @@ public class FavouriteMovieContentProvider extends ContentProvider {
 
         Uri returnUri;
 
-        switch(match) {
+        switch (match) {
             case FAVOURITE_MOVIES:
                 long id = db.insert(TABLE_NAME, null, values);
-                if ( id > 0 ) {
+                if (id > 0) {
                     //success
                     returnUri = ContentUris.withAppendedId(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI, id);
 

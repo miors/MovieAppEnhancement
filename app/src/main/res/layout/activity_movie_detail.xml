@@ -29,14 +29,8 @@
                 android:id="@+id/iv_movie_poster_path"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/layout_height"
+                android:paddingBottom="@dimen/padding_bottom"
                 />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_collapseMode="pin" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -65,6 +59,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/favouriteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="end|top"
+                        android:src="@android:drawable/btn_star_big_off"
+                        android:onClick="onClickAddFavouriteMovie"
+                        app:backgroundTint="@android:color/white"
+                        app:fabSize="mini" />
+
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tv_movie_original_title"
@@ -99,26 +112,34 @@
                         android:text="@string/release_date"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
-                    <Button
-                        android:id="@+id/favouriteButton"
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/primary_text_dark"
-                        android:background="@color/colorPrimary"
-                        android:onClick="onClickAddFavouriteMovie"
-                        android:text="@string/add_to_favourite"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                        android:layout_height="@dimen/view_divider_height"
+                        android:background="@color/colorPrimaryDark"/>
 
                     <TextView
-                        android:id="@+id/tv_movie_trailer"
+                        android:id="@+id/tv_movie_trailer_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/textview_layout_margin"
-                        android:text="@string/movie_trailer"
+                        android:text="@string/movie_trailer_header"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+                    <LinearLayout
+                        android:id="@+id/tv_movie_trailer_linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_divider_height"
+                        android:background="@color/colorPrimaryDark"/>
 
                     <TextView
                         android:id="@+id/tv_movie_reviews"
+                        android:background="@android:color/holo_blue_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/textview_layout_margin"

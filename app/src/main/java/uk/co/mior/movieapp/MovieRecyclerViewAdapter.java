@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder>{
+public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
 
     private List<MovieReturned> mData = new ArrayList<>();
     final private LayoutInflater mInflater;
@@ -47,7 +47,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         return mData.size();
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ImageView mMovieItem;
 
         public MovieViewHolder(View itemView) {

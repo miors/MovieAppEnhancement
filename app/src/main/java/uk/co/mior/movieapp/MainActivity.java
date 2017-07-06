@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private static final int MOVIE_QUERY_LOADER = 22;
     private static final int MOVIE_CURSOR_QUERY_LOADER = 33;
     private List<MovieReturned> mMovieReturneds;
-
+    private SwipeRefreshLayout mySwipeRefreshLayout;
+    private Spinner spinner;
 
     private final LoaderManager.LoaderCallbacks<Cursor> movieCursorQueryLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
 
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 @Override
                 protected void onStartLoading() {
                     mProgressBar.setVisibility(View.VISIBLE);
-                    if (args == null){
+                    if (args == null) {
                         return;
                     }
                     forceLoad();
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             mProgressBar.setVisibility(View.INVISIBLE);
+            mySwipeRefreshLayout.setRefreshing(false);
             if (data.moveToFirst()) {
 
                 // data row exists
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         @Override
         public void onLoadFinished(Loader<List<MovieReturned>> loader, List<MovieReturned> result) {
             mProgressBar.setVisibility(View.INVISIBLE);
+            mySwipeRefreshLayout.setRefreshing(false);
             mMovieData = result;
             if (result != null) {
                 mAdapter.setData(result);
@@ -191,11 +195,33 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     };
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_refresh:
+
+                String selectedItem = spinner.getSelectedItem().toString();
+
+                Bundle queryBundle = prepareBundleQueryString(selectedItem);
+
+                mySwipeRefreshLayout.setRefreshing(true);
+                LoaderManager loaderManager = getSupportLoaderManager();
+
+                if (selectedItem.equalsIgnoreCase("My Favourite")) {
+                    loaderManager.initLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
+                } else {
+                    loaderManager.initLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.spinner);
 
-        Spinner spinner = (Spinner) item.getActionView();
+        spinner = (Spinner) item.getActionView();
         spinner.setOnItemSelectedListener(this);
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sort_array, R.layout.spinner_item);
@@ -224,19 +250,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
         mMovieData = null;
         mMovieReturneds = null;
-        Bundle queryBundle = new Bundle();
-        if (parent.getItemAtPosition(position).toString().equalsIgnoreCase("Most Popular")) {
-            Log.d(TAG, "onItemSelected: Fetching most popular movies");
-            queryBundle.putString(QUERY_STRING, "popular");
-        } else if (parent.getItemAtPosition(position).toString().equalsIgnoreCase("Top Rated")) {
-            Log.d(TAG, "onItemSelected: Fetching top rated movies");
-            queryBundle.putString(QUERY_STRING, "top_rated");
-        } else if (parent.getItemAtPosition(position).toString().equalsIgnoreCase("My Favourite")) {
-            Log.d(TAG, "onItemSelected: Fetching my favourite movies");
-            queryBundle.putString(QUERY_STRING, "my favourite");
-        } else {
-            showErrorMessage();
-        }
+        Bundle queryBundle = prepareBundleQueryString(parent.getItemAtPosition(position).toString());
+
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<List<MovieReturned>> movieReturnedLoader = loaderManager.getLoader(MOVIE_QUERY_LOADER);
         Loader<Cursor> mCursorLoader = loaderManager.getLoader(MOVIE_CURSOR_QUERY_LOADER);
@@ -281,6 +296,26 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         mProgressBar = (ProgressBar) findViewById(R.id.pb_progress);
 
         mAdapter = new MovieRecyclerViewAdapter(this, null, this);
+        mySwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+
+        mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+                String selectedItem = spinner.getSelectedItem().toString();
+
+                Bundle queryBundle = prepareBundleQueryString(selectedItem);
+
+                mySwipeRefreshLayout.setRefreshing(true);
+                LoaderManager loaderManager = getSupportLoaderManager();
+
+                if (selectedItem.equalsIgnoreCase("My Favourite")) {
+                    loaderManager.initLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
+                } else {
+                    loaderManager.initLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
+                }
+            }
+        });
     }
 
     private void showRecyclerView() {
@@ -314,5 +349,21 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         } else {
             mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(numberOfColumnsLandscape, 1));
         }
+    }
+
+    private Bundle prepareBundleQueryString(String selectedItem) {
+        Bundle queryBundle = new Bundle();
+        String placeholder = "";
+        if (selectedItem.equalsIgnoreCase("Most popular")) {
+            placeholder = "popular";
+        } else if (selectedItem.equalsIgnoreCase("Top rated")) {
+            placeholder = "top_rated";
+        } else if (selectedItem.equalsIgnoreCase("My favourite")) {
+            placeholder = "my favourite";
+        } else {
+            showErrorMessage();
+        }
+        queryBundle.putString(QUERY_STRING, placeholder);
+        return queryBundle;
     }
 }
