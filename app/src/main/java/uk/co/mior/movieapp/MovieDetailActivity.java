@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -18,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -44,13 +45,22 @@ public class MovieDetailActivity extends AppCompatActivity {
     private Boolean mMovieInFavourite = false;
     private Boolean mReviewSectionShown = false;
     private List<Uri> youTubeUris;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.tv_movie_original_title) TextView mMovieOriginalTitleTextView;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.tv_movie_overview) TextView mMovieOverviewTextView;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.tv_movie_vote_average) TextView mMovieVoteAverageTextView;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.tv_movie_release_date) TextView mMovieReleaseDateTextView;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.tv_movie_reviews) TextView mReviews;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.iv_movie_poster_path) ImageView mMoviePosterPathImageView;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.favouriteButton) FloatingActionButton mFavouriteButton;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout mCoordinatorLayout;
 
 
     private final LoaderManager.LoaderCallbacks<Cursor> favouriteMovieLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
@@ -165,7 +175,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tv_movie_detail_linear_layout);
 
             if (data == null) {
-                Toast.makeText(MovieDetailActivity.this, "Please check internet connection", Toast.LENGTH_LONG).show();
+                Snackbar.make(mCoordinatorLayout,"Please check internet connection", Snackbar.LENGTH_LONG).show();
+
                 return;
             }
             if (data.size() == 0) {
@@ -264,7 +275,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tv_movie_trailer_linear_layout);
 
             if (webpage == null) {
-                Toast.makeText(MovieDetailActivity.this, "Please check internet connection", Toast.LENGTH_LONG).show();
+                Snackbar.make(mCoordinatorLayout,"Please check internet connection", Snackbar.LENGTH_LONG).show();
                 return;
             }
             if (webpage.size() == 0) {
@@ -375,7 +386,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             Uri uri = getContentResolver().insert(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI, contentValues);
 
             if (uri != null) {
-                Toast.makeText(getBaseContext(), "Added to favourite", Toast.LENGTH_SHORT).show();
+                Snackbar.make(mCoordinatorLayout,"Added to favourite", Snackbar.LENGTH_SHORT).show();
                 getSupportLoaderManager().restartLoader(FAVOURITE_MOVIE_LOADER_ID, null, favouriteMovieLoaderListener);
             }
 
@@ -383,7 +394,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             //lets remove from favourite DB
             Uri movieIdUri = FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI.buildUpon().appendPath(Integer.toString(movieReturned.getId())).build();
             getContentResolver().delete(movieIdUri, null, null);
-            Toast.makeText(getBaseContext(), "Removed from favourite", Toast.LENGTH_SHORT).show();
+            Snackbar.make(mCoordinatorLayout,"Removed from favourite", Snackbar.LENGTH_SHORT).show();
             getSupportLoaderManager().restartLoader(FAVOURITE_MOVIE_LOADER_ID, null, favouriteMovieLoaderListener);
 
         }

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -23,7 +25,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -44,12 +45,14 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private MovieRecyclerViewAdapter mAdapter;
     private List<MovieReturned> mMovieData;
     private Cursor mFavouriteMovieCursorData;
-    //private RecyclerView mRecyclerView;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.rv_movies) RecyclerView mRecyclerView;
-    //private TextView mErrorMessageDisplay;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.tv_error_message_display) TextView mErrorMessageDisplay;
-    //private ProgressBar mProgressBar;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.pb_progress) ProgressBar mProgressBar;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout mCoordinatorLayout;
     private static final String TAG = "MainActivity";
     private static final int MOVIE_QUERY_LOADER = 22;
     private static final int MOVIE_CURSOR_QUERY_LOADER = 33;
@@ -377,7 +380,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
             loaderManager.destroyLoader(MOVIE_CURSOR_QUERY_LOADER);
         }
 
-
         if (movieReturnedLoader != null) {
             loaderManager.destroyLoader(MOVIE_QUERY_LOADER);
         }
@@ -410,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 mySwipeRefreshLayout.setRefreshing(true);
                 LoaderManager loaderManager = getSupportLoaderManager();
 
-                if (selectedItem.equalsIgnoreCase("My Favourite")) {
+                if (selectedItem.equalsIgnoreCase(getString(R.string.my_favourite))) {
                     loaderManager.initLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
                 } else {
                     loaderManager.initLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
@@ -435,8 +437,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
         mErrorMessageDisplay.setText(getResources().getString(R.string.internet_error));
         mRecyclerView.setVisibility(View.INVISIBLE);
-        Toast.makeText(this, "Please check internet connection!",
-                Toast.LENGTH_LONG).show();
+        Snackbar.make(mCoordinatorLayout,"Please check internet connection", Snackbar.LENGTH_LONG).show();
         Log.d(TAG, "showErrorMessage: is shown");
     }
 

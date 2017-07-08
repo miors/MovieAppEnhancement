@@ -16,7 +16,7 @@ public class NetworkUtils {
     private final static String ENDPOINT_POPULAR = "/movie/popular";
     private final static String ENDPOINT_TOP_RATED = "/movie/top_rated";
     private final static String API_KEY = "api_key";
-    private final static String API_VALUE = "538c5e8bba8ce788a8f945bb06190cd0";
+    private final static String API_VALUE = BuildConfig.THE_MOVIE_DB_API_TOKEN;
     private static final String TRAILER = "trailer";
     private static final String REVIEWS = "reviews";
 
