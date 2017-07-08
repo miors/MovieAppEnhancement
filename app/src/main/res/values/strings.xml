@@ -17,6 +17,9 @@
     <string name="movie_trailer_header">Trailers:</string>
     <string name="menu_refresh">Refresh</string>
     <string name="trailer_prepend">Trailer</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="my_favourite">My Favourite</string>
     <string-array name="sort_array">
         <item>Most Popular</item>
         <item>Top Rated</item>

@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +26,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import uk.co.mior.movieapp.data.FavouriteMovieContract;
 import uk.co.mior.movieapp.utilities.MovieJsonUtils;
 import uk.co.mior.movieapp.utilities.NetworkUtils;
@@ -38,10 +41,17 @@ public class MovieDetailActivity extends AppCompatActivity {
     private MovieReturned movieReturned;
     private final String TRAILER = "trailer";
     private final String REVIEWS = "reviews";
-    private FloatingActionButton mFavouriteButton;
     private Boolean mMovieInFavourite = false;
     private Boolean mReviewSectionShown = false;
     private List<Uri> youTubeUris;
+    @BindView(R.id.tv_movie_original_title) TextView mMovieOriginalTitleTextView;
+    @BindView(R.id.tv_movie_overview) TextView mMovieOverviewTextView;
+    @BindView(R.id.tv_movie_vote_average) TextView mMovieVoteAverageTextView;
+    @BindView(R.id.tv_movie_release_date) TextView mMovieReleaseDateTextView;
+    @BindView(R.id.tv_movie_reviews) TextView mReviews;
+    @BindView(R.id.iv_movie_poster_path) ImageView mMoviePosterPathImageView;
+    @BindView(R.id.favouriteButton) FloatingActionButton mFavouriteButton;
+
 
     private final LoaderManager.LoaderCallbacks<Cursor> favouriteMovieLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
 
@@ -299,21 +309,14 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+        ButterKnife.bind(this);
+
         Intent intent = getIntent();
 
         if (null != intent && intent.hasExtra("movieDetailObject")) {
 
             // Fetching data from a parcelable object passed from MainActivity
             movieReturned = getIntent().getParcelableExtra("movieDetailObject");
-
-            TextView mMovieOriginalTitleTextView = (TextView) findViewById(R.id.tv_movie_original_title);
-            TextView mMovieOverviewTextView = (TextView) findViewById(R.id.tv_movie_overview);
-            TextView mMovieVoteAverageTextView = (TextView) findViewById(R.id.tv_movie_vote_average);
-            TextView mMovieReleaseDateTextView = (TextView) findViewById(R.id.tv_movie_release_date);
-            //TextView mViewTrailer = (TextView) findViewById(R.id.tv_movie_trailer);
-            TextView mReviews = (TextView) findViewById(R.id.tv_movie_reviews);
-            ImageView mMoviePosterPathImageView = (ImageView) findViewById(R.id.iv_movie_poster_path);
-            mFavouriteButton = (FloatingActionButton) findViewById(R.id.favouriteButton);
 
             mMovieOriginalTitleTextView.setText(movieReturned.getTitle());
             mMovieOverviewTextView.setText(movieReturned.getOverview());
@@ -384,5 +387,13 @@ public class MovieDetailActivity extends AppCompatActivity {
             getSupportLoaderManager().restartLoader(FAVOURITE_MOVIE_LOADER_ID, null, favouriteMovieLoaderListener);
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            onBackPressed();
+        }
+        return true;
     }
 }

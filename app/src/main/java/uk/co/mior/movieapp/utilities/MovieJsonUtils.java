@@ -60,8 +60,6 @@ public class MovieJsonUtils {
             String releaseDate = eachMovie.getString("release_date");
             int id = eachMovie.getInt("id");
 
-            //String BASE_URL = "http://image.tmdb.org/t/p/w185";
-
             parsedMovieData.add(i, new MovieReturned(title, posterPath,
                     overview, voteAverage, releaseDate, id));
         }

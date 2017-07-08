@@ -17,9 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildTypes.each {
-        it.buildConfigField 'String', 'THE_MOVIE_DB_API_TOKEN', MyTheMovieDBApiToken
-    }
+//    buildTypes.each {
+//        it.buildConfigField 'String', 'THE_MOVIE_DB_API_TOKEN', MyTheMovieDBApiToken
+//    }
 }
 
 repositories {
@@ -42,4 +42,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //noinspection GradleDependency
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }
