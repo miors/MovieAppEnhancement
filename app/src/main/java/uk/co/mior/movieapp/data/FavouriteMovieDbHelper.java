@@ -37,9 +37,9 @@ class FavouriteMovieDbHelper extends SQLiteOpenHelper {
     /**
      * using recommendation from
      * https://thebhwgroup.com/blog/how-android-sqlite-onupgrade
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db SQLite database name
+     * @param oldVersion old version of db
+     * @param newVersion new version of db
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

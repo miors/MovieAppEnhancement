@@ -53,15 +53,13 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     @BindView(R.id.pb_progress) ProgressBar mProgressBar;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
     @BindView(R.id.coordinatorLayout) CoordinatorLayout mCoordinatorLayout;
+    @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+    @BindView(R.id.swiperefresh) SwipeRefreshLayout mySwipeRefreshLayout;
     private static final String TAG = "MainActivity";
     private static final int MOVIE_QUERY_LOADER = 22;
     private static final int MOVIE_CURSOR_QUERY_LOADER = 33;
     private List<MovieReturned> mMovieReturneds;
-    private SwipeRefreshLayout mySwipeRefreshLayout;
     private Spinner spinner;
-    private LoaderManager loaderManager;
-    private Loader<List<MovieReturned>> movieReturnedLoader;
-    private Loader<Cursor> mCursorLoader;
     private int mRestoredScrollPosition;
     private boolean refresh;
 
@@ -89,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
                 @Override
                 public Cursor loadInBackground() {
+                    Log.d(TAG, "loadInBackground: method called for cursor");
                     try {
                         return getContentResolver().query(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI,
                                 null,
@@ -103,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
                 @Override
                 public void deliverResult(Cursor data) {
+                    Log.d(TAG, "deliverResult: method called for cursor");
                     super.deliverResult(data);
                     mFavouriteMovieCursorData = data;
                 }
@@ -111,9 +111,9 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            Log.d(TAG, "onLoadFinished: method called for cursor");
             mProgressBar.setVisibility(View.INVISIBLE);
             mySwipeRefreshLayout.setRefreshing(false);
-            mFavouriteMovieCursorData = data;
             if (data.moveToFirst()) {
 
                 // data row exists
@@ -138,22 +138,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setAdapter(mAdapter);
-
-                try {
-                    //go to the was position if not refresh
-                    if (!refresh) {
-                        if (mRestoredScrollPosition > 0) {
-                            mRecyclerView.scrollToPosition(mRestoredScrollPosition);
-                        } else {
-                            // go to fist position
-                            mRecyclerView.scrollToPosition(0);
-                            //reset refresh to false
-                            refresh = false;
-                        }
-                    }
-                } catch (Exception e) {
-                    showErrorMessage();
-                }
+                scrollToOriginalPosition();
 
                 showRecyclerView();
 
@@ -222,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
         @Override
         public void onLoadFinished(Loader<List<MovieReturned>> loader, List<MovieReturned> result) {
+            Log.d(TAG, "onLoadFinished: method called for MovieReturned");
             mProgressBar.setVisibility(View.INVISIBLE);
             mySwipeRefreshLayout.setRefreshing(false);
             mMovieData = result;
@@ -232,22 +218,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setAdapter(mAdapter);
 
-                try {
-                    //go to the was position if not refresh
-                    if (!refresh) {
-                        if (mRestoredScrollPosition > 0) {
-                            mRecyclerView.scrollToPosition(mRestoredScrollPosition);
-                        } else {
-                            // go to fist position
-                            mRecyclerView.scrollToPosition(0);
-                            //reset refresh to false
-                            refresh = false;
-                        }
-                    }
-
-                } catch (Exception e) {
-                    showErrorMessage();
-                }
+                scrollToOriginalPosition();
 
                 showRecyclerView();
             } else {
@@ -263,21 +234,16 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected: method called");
         switch (item.getItemId()) {
             case R.id.menu_refresh:
 
-                String selectedItem = spinner.getSelectedItem().toString();
+                String selectionName = spinner.getSelectedItem().toString();
 
-                Bundle queryBundle = prepareBundleQueryString(selectedItem);
+                Bundle queryBundle = prepareBundleQueryString(selectionName);
 
                 mySwipeRefreshLayout.setRefreshing(true);
-                LoaderManager loaderManager = getSupportLoaderManager();
-
-                if (selectedItem.equalsIgnoreCase("My Favourite")) {
-                    loaderManager.initLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
-                } else {
-                    loaderManager.initLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
-                }
+                loadLoader(selectionName, queryBundle);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -310,31 +276,37 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "onItemSelected: method called");
 
-        int userChoice = parent.getSelectedItemPosition();
-        SharedPreferences sharedPref = getSharedPreferences("SharedPrefFileName", 0);
-        SharedPreferences.Editor prefEditor = sharedPref.edit();
-        prefEditor.putInt("userSelection", userChoice);
-        prefEditor.apply();
-
         mMovieData = null;
         mMovieReturneds = null;
-        Bundle queryBundle = prepareBundleQueryString(parent.getItemAtPosition(position).toString());
+        mFavouriteMovieCursorData = null;
+        String selectionName = parent.getItemAtPosition(position).toString();
+        Bundle queryBundle = prepareBundleQueryString(selectionName);
 
-        loaderManager = getSupportLoaderManager();
-        movieReturnedLoader = loaderManager.getLoader(MOVIE_QUERY_LOADER);
-        mCursorLoader = loaderManager.getLoader(MOVIE_CURSOR_QUERY_LOADER);
+        loadLoader(selectionName, queryBundle);
 
-        if (parent.getItemAtPosition(position).toString().equalsIgnoreCase(getString(R.string.most_popular)) || parent.getItemAtPosition(position).toString().equalsIgnoreCase(getString(R.string.top_rated))) {
-            if (movieReturnedLoader == null) {
-                loaderManager.initLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
-            } else {
-                loaderManager.restartLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
+    }
+
+    private void loadLoader(String selectionName, Bundle queryBundle) {
+        Loader<List<MovieReturned>> movieReturnedLoader = getSupportLoaderManager().getLoader(MOVIE_QUERY_LOADER);
+        Loader<Cursor> cursorLoader = getSupportLoaderManager().getLoader(MOVIE_CURSOR_QUERY_LOADER);
+
+        if (selectionName.equalsIgnoreCase(getString(R.string.my_favourite))) {
+            if (movieReturnedLoader != null) {
+                getSupportLoaderManager().destroyLoader(MOVIE_QUERY_LOADER);
             }
-        } else if (parent.getItemAtPosition(position).toString().equalsIgnoreCase(getString(R.string.my_favourite))) {
-            if (mCursorLoader == null) {
-                loaderManager.initLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
+            if (cursorLoader == null) {
+                getSupportLoaderManager().initLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
             } else {
-                loaderManager.restartLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
+                getSupportLoaderManager().restartLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
+            }
+        } else {
+            if (cursorLoader != null) {
+                getSupportLoaderManager().destroyLoader(MOVIE_CURSOR_QUERY_LOADER);
+            }
+            if (movieReturnedLoader == null) {
+                getSupportLoaderManager().initLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
+            } else {
+                getSupportLoaderManager().restartLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
             }
         }
     }
@@ -342,6 +314,12 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        int userChoice = spinner.getSelectedItemPosition();
+        SharedPreferences sharedPref = getSharedPreferences("SharedPrefFileName", 0);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putInt("userSelection", userChoice);
+        prefEditor.apply();
 
         try {
             //get the index of first visible item
@@ -376,13 +354,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        if (mCursorLoader != null) {
-            loaderManager.destroyLoader(MOVIE_CURSOR_QUERY_LOADER);
-        }
-
-        if (movieReturnedLoader != null) {
-            loaderManager.destroyLoader(MOVIE_QUERY_LOADER);
-        }
+        // want to reload cursor when it goes back main activity
+        mFavouriteMovieCursorData = null;
         Context context = MainActivity.this;
         Class destinationActivity = MovieDetailActivity.class;
         Intent intent = new Intent(context, destinationActivity);
@@ -398,25 +371,18 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         ButterKnife.bind(this);
 
         mAdapter = new MovieRecyclerViewAdapter(this, null, this);
-        mySwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
 
         mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refresh = true;
                 Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
-                String selectedItem = spinner.getSelectedItem().toString();
+                String selectionName = spinner.getSelectedItem().toString();
 
-                Bundle queryBundle = prepareBundleQueryString(selectedItem);
+                Bundle queryBundle = prepareBundleQueryString(selectionName);
 
                 mySwipeRefreshLayout.setRefreshing(true);
-                LoaderManager loaderManager = getSupportLoaderManager();
-
-                if (selectedItem.equalsIgnoreCase(getString(R.string.my_favourite))) {
-                    loaderManager.initLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
-                } else {
-                    loaderManager.initLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
-                }
+                loadLoader(selectionName, queryBundle);
             }
         });
     }
@@ -473,5 +439,47 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         }
         queryBundle.putString(QUERY_STRING, placeholder);
         return queryBundle;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: method called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: method called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: method called");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: method called");
+    }
+
+    private void scrollToOriginalPosition() {
+        try {
+            //go to the was position if not refresh
+            if (!refresh) {
+                if (mRestoredScrollPosition > 0) {
+                    mRecyclerView.scrollToPosition(mRestoredScrollPosition);
+                } else {
+                    // go to fist position
+                    mRecyclerView.scrollToPosition(0);
+                    //reset refresh to false
+                    refresh = false;
+                }
+            }
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
 }
