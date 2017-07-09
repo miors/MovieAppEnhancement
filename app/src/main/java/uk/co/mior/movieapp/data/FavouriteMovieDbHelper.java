@@ -12,7 +12,7 @@ class FavouriteMovieDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "favouriteMoviesDb.db";
 
     // If you change the database scheme, you must increment the database version
-    private static final int VERSION = 6;
+    private static final int VERSION = 2;
 
     public FavouriteMovieDbHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -34,9 +34,20 @@ class FavouriteMovieDbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE);
     }
 
+    /**
+     * using recommendation from
+     * https://thebhwgroup.com/blog/how-android-sqlite-onupgrade
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + FavouriteMovieEntry.TABLE_NAME);
-        onCreate(db);
+        final String ALTER_TABLE_1 = "ALTER TABLE "
+                + FavouriteMovieEntry.TABLE_NAME + " ADD COLUMN " + FavouriteMovieEntry.COLUMN_ID + " INTEGER NOT NULL);";
+
+        if (oldVersion < 2) {
+            db.execSQL(ALTER_TABLE_1);
+        }
     }
 }
