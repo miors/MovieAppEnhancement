@@ -11,11 +11,12 @@
     <dimen name="cardview_layout_margin_top">24dp</dimen>
     <dimen name="cardview_card_elevation">6dp</dimen>
     <dimen name="textview_layout_margin">12dp</dimen>
-    <dimen name="view_divider_height">2dp</dimen>
+    <dimen name="view_divider_height">1dp</dimen>
     <dimen name="expanded_title_margin_end">64dp</dimen>
     <dimen name="moviedetail_image_layout_height">300dp</dimen>
     <dimen name="moviedetail_imageview_padding_top">100dp</dimen>
     <dimen name="collapsing_toolbar_height">320dp</dimen>
     <dimen name="imageview_landscape_paddingtop">210dp</dimen>
     <dimen name="collapsingtoolbar_landscape_height">340dp</dimen>
+    <dimen name="distance_5dp">5dp</dimen>
 </resources>

@@ -76,10 +76,14 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_gravity="end|top"
+                            android:layout_marginRight="@dimen/distance_5dp"
+                            android:layout_marginEnd="@dimen/distance_5dp"
+                            android:layout_marginTop="@dimen/distance_5dp"
+                            android:layout_marginBottom="@dimen/distance_5dp"
                             android:src="@android:drawable/btn_star_big_off"
                             android:onClick="onClickAddFavouriteMovie"
                             app:backgroundTint="@android:color/white"
-                            app:fabSize="mini" />
+                            app:fabSize="normal" />
 
                     </RelativeLayout>
 
@@ -90,6 +94,8 @@
                         android:layout_marginLeft="@dimen/textview_layout_margin"
                         android:layout_marginRight="@dimen/textview_layout_margin"
                         android:layout_marginTop="@dimen/textview_layout_margin"
+                        android:background="@android:color/darker_gray"
+                        android:textColor="@android:color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
                     <TextView
@@ -119,7 +125,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/view_divider_height"
-                        android:background="@color/colorPrimaryDark"/>
+                        android:background="@android:color/darker_gray"/>
 
                     <TextView
                         android:id="@+id/tv_movie_trailer_header"
@@ -127,6 +133,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/textview_layout_margin"
                         android:text="@string/movie_trailer_header"
+                        android:background="@android:color/darker_gray"
+                        android:textColor="@android:color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
                     <LinearLayout
@@ -139,11 +147,12 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/view_divider_height"
-                        android:background="@color/colorPrimaryDark"/>
+                        android:background="@android:color/darker_gray"/>
 
                     <TextView
                         android:id="@+id/tv_movie_reviews"
-                        android:background="@android:color/holo_blue_light"
+                        android:background="@android:color/darker_gray"
+                        android:textColor="@android:color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/textview_layout_margin"

@@ -226,8 +226,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             for (int i = 0; i < data.size(); i++) {
                 TextView textViewName = new TextView(MovieDetailActivity.this);
                 textViewName.setText(data.get(i).getAuthor());
-                textViewName.setTextColor(Color.BLUE);
-                textViewName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+                textViewName.setTextColor(Color.BLACK);
+                textViewName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
                 LinearLayout.LayoutParams params = new LinearLayout
                         .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -335,8 +335,8 @@ public class MovieDetailActivity extends AppCompatActivity {
                 String trailer_title = getResources().getString(R.string
                         .trailer_prepend) + " " + (i + 1);
                 trailerUri.get(i).setText(trailer_title);
-                trailerUri.get(i).setTextColor(Color.BLUE);
-                trailerUri.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                trailerUri.get(i).setTextColor(Color.GRAY);
+                trailerUri.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
                 LinearLayout.LayoutParams params = new LinearLayout
                         .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
