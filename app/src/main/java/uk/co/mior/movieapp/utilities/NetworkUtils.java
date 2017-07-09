@@ -11,8 +11,12 @@ import java.util.Scanner;
 
 import uk.co.mior.movieapp.BuildConfig;
 
+/**
+ * Handles request to server
+ */
 public class NetworkUtils {
-    private final static String THEMOVIEDB_BASE_URL = "http://api.themoviedb.org/3";
+    private final static String THEMOVIEDB_BASE_URL = "http://api.themoviedb" +
+            ".org/3";
     private final static String ENDPOINT_POPULAR = "/movie/popular";
     private final static String ENDPOINT_TOP_RATED = "/movie/top_rated";
     private final static String API_KEY = "api_key";
@@ -20,10 +24,10 @@ public class NetworkUtils {
     private static final String TRAILER = "trailer";
     private static final String REVIEWS = "reviews";
 
-    public static URL buildUrl(String endpoint){
-        if (endpoint.equalsIgnoreCase("popular")){
+    public static URL buildUrl(String endpoint) {
+        if (endpoint.equalsIgnoreCase("popular")) {
             endpoint = ENDPOINT_POPULAR;
-        } else if (endpoint.equalsIgnoreCase("top_rated")){
+        } else if (endpoint.equalsIgnoreCase("top_rated")) {
             endpoint = ENDPOINT_TOP_RATED;
         }
         Uri builtUri = Uri.parse(THEMOVIEDB_BASE_URL + endpoint).buildUpon()
@@ -40,14 +44,15 @@ public class NetworkUtils {
         return url;
     }
 
-    public static URL buildTrailerOrReviewUrl(int id, String trailerOrReview){
+    public static URL buildTrailerOrReviewUrl(int id, String trailerOrReview) {
         String placeholder = null;
-        if (trailerOrReview.equalsIgnoreCase(TRAILER)){
+        if (trailerOrReview.equalsIgnoreCase(TRAILER)) {
             placeholder = "/videos";
-        } else if (trailerOrReview.equalsIgnoreCase(REVIEWS)){
+        } else if (trailerOrReview.equalsIgnoreCase(REVIEWS)) {
             placeholder = "/reviews";
         }
-        Uri builtUri = Uri.parse(THEMOVIEDB_BASE_URL+"/movie/"+id+placeholder).buildUpon()
+        Uri builtUri = Uri.parse(THEMOVIEDB_BASE_URL + "/movie/" + id +
+                placeholder).buildUpon()
                 .appendQueryParameter(API_KEY, API_VALUE)
                 .build();
         URL url = null;
@@ -70,7 +75,8 @@ public class NetworkUtils {
      * @throws IOException Related to network and stream reading
      */
     public static String getResponseFromHttpUrl(URL url) throws IOException {
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        HttpURLConnection urlConnection = (HttpURLConnection) url
+                .openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
 
@@ -83,10 +89,9 @@ public class NetworkUtils {
             } else {
                 return null;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
-        }
-        finally {
+        } finally {
             urlConnection.disconnect();
         }
     }

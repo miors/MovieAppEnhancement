@@ -33,6 +33,9 @@ import uk.co.mior.movieapp.data.FavouriteMovieContract;
 import uk.co.mior.movieapp.utilities.MovieJsonUtils;
 import uk.co.mior.movieapp.utilities.NetworkUtils;
 
+/**
+ * MovieDetailActivity displayes the detail of individual movie
+ */
 public class MovieDetailActivity extends AppCompatActivity {
 
     private final String YOUTUBE_BASE_URL = "https://www.youtube.com/watch";
@@ -46,29 +49,38 @@ public class MovieDetailActivity extends AppCompatActivity {
     private Boolean mReviewSectionShown = false;
     private List<Uri> youTubeUris;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.tv_movie_original_title) TextView mMovieOriginalTitleTextView;
+    @BindView(R.id.tv_movie_original_title)
+    TextView mMovieOriginalTitleTextView;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.tv_movie_overview) TextView mMovieOverviewTextView;
+    @BindView(R.id.tv_movie_overview)
+    TextView mMovieOverviewTextView;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.tv_movie_vote_average) TextView mMovieVoteAverageTextView;
+    @BindView(R.id.tv_movie_vote_average)
+    TextView mMovieVoteAverageTextView;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.tv_movie_release_date) TextView mMovieReleaseDateTextView;
+    @BindView(R.id.tv_movie_release_date)
+    TextView mMovieReleaseDateTextView;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.tv_movie_reviews) TextView mReviews;
+    @BindView(R.id.tv_movie_reviews)
+    TextView mReviews;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.iv_movie_poster_path) ImageView mMoviePosterPathImageView;
+    @BindView(R.id.iv_movie_poster_path)
+    ImageView mMoviePosterPathImageView;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.favouriteButton) FloatingActionButton mFavouriteButton;
+    @BindView(R.id.favouriteButton)
+    FloatingActionButton mFavouriteButton;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.coordinatorLayout) CoordinatorLayout mCoordinatorLayout;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout mCoordinatorLayout;
 
 
-    private final LoaderManager.LoaderCallbacks<Cursor> favouriteMovieLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
+    private final LoaderManager.LoaderCallbacks<Cursor>
+            favouriteMovieLoaderListener = new LoaderManager
+            .LoaderCallbacks<Cursor>() {
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             return new AsyncTaskLoader<Cursor>(MovieDetailActivity.this) {
-                //Cursor mFavouriteMovieData = null;
 
                 @Override
                 protected void onStartLoading() {
@@ -78,7 +90,10 @@ public class MovieDetailActivity extends AppCompatActivity {
                 @Override
                 public Cursor loadInBackground() {
 
-                    Uri movieIdUri = FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI.buildUpon().appendPath(Integer.toString(movieReturned.getId())).build();
+                    Uri movieIdUri = FavouriteMovieContract
+                            .FavouriteMovieEntry.CONTENT_URI.buildUpon()
+                            .appendPath(Integer.toString(movieReturned.getId
+                                    ())).build();
                     try {
                         return getContentResolver().query(movieIdUri,
                                 null,
@@ -99,11 +114,13 @@ public class MovieDetailActivity extends AppCompatActivity {
             if (data.moveToFirst()) {
                 //movie id exists in db
                 mMovieInFavourite = true;
-                mFavouriteButton.setImageResource(android.R.drawable.btn_star_big_on);
+                mFavouriteButton.setImageResource(android.R.drawable
+                        .btn_star_big_on);
             } else {
                 //movie id not in db
                 mMovieInFavourite = false;
-                mFavouriteButton.setImageResource(android.R.drawable.btn_star_big_off);
+                mFavouriteButton.setImageResource(android.R.drawable
+                        .btn_star_big_off);
             }
         }
 
@@ -112,7 +129,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     };
 
-    private final View.OnClickListener reviewClickListener = new View.OnClickListener() {
+    private final View.OnClickListener reviewClickListener = new View
+            .OnClickListener() {
 
         @Override
         public void onClick(View v) {
@@ -123,21 +141,27 @@ public class MovieDetailActivity extends AppCompatActivity {
                 Bundle queryBundle = new Bundle();
 
                 LoaderManager loaderManager = getSupportLoaderManager();
-                Loader<String> reviewLoader = loaderManager.getLoader(REVIEWS_QUERY_LOADER);
+                Loader<String> reviewLoader = loaderManager.getLoader
+                        (REVIEWS_QUERY_LOADER);
 
                 if (reviewLoader == null) {
-                    loaderManager.initLoader(REVIEWS_QUERY_LOADER, queryBundle, reviewLoaderListener);
+                    loaderManager.initLoader(REVIEWS_QUERY_LOADER,
+                            queryBundle, reviewLoaderListener);
                 } else {
-                    loaderManager.restartLoader(REVIEWS_QUERY_LOADER, queryBundle, reviewLoaderListener);
+                    loaderManager.restartLoader(REVIEWS_QUERY_LOADER,
+                            queryBundle, reviewLoaderListener);
                 }
             }
         }
     };
 
-    private final LoaderManager.LoaderCallbacks<List<Reviews>> reviewLoaderListener = new LoaderManager.LoaderCallbacks<List<Reviews>>() {
+    private final LoaderManager.LoaderCallbacks<List<Reviews>>
+            reviewLoaderListener = new LoaderManager
+            .LoaderCallbacks<List<Reviews>>() {
         @Override
         public Loader<List<Reviews>> onCreateLoader(int id, final Bundle args) {
-            return new AsyncTaskLoader<List<Reviews>>(MovieDetailActivity.this) {
+            return new AsyncTaskLoader<List<Reviews>>(MovieDetailActivity
+                    .this) {
 
                 @Override
                 protected void onStartLoading() {
@@ -153,7 +177,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                     List<Reviews> reviews;
 
                     try {
-                        URL reviewsRequestUrl = NetworkUtils.buildTrailerOrReviewUrl(movieReturned.getId(), REVIEWS);
+                        URL reviewsRequestUrl = NetworkUtils
+                                .buildTrailerOrReviewUrl(movieReturned.getId
+                                        (), REVIEWS);
                         String jsonReviewsResponse = NetworkUtils
                                 .getResponseFromHttpUrl(reviewsRequestUrl);
 
@@ -171,19 +197,25 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onLoadFinished(Loader<List<Reviews>> loader, List<Reviews> data) {
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tv_movie_detail_linear_layout);
+        public void onLoadFinished(Loader<List<Reviews>> loader,
+                                   List<Reviews> data) {
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id
+                    .tv_movie_detail_linear_layout);
 
             if (data == null) {
-                Snackbar.make(mCoordinatorLayout,"Please check internet connection", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mCoordinatorLayout, "Please check internet " +
+                        "connection", Snackbar.LENGTH_LONG).show();
 
                 return;
             }
             if (data.size() == 0) {
                 TextView textViewError = new TextView(MovieDetailActivity.this);
-                textViewError.setText(getResources().getString(R.string.no_review_available));
+                textViewError.setText(getResources().getString(R.string
+                        .no_review_available));
 
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams params = new LinearLayout
+                        .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
                 params.setMargins(22, 0, 20, 10);
                 textViewError.setLayoutParams(params);
 
@@ -197,12 +229,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                 textViewName.setTextColor(Color.BLUE);
                 textViewName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams params = new LinearLayout
+                        .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
                 params.setMargins(20, 0, 20, 10);
                 textViewName.setLayoutParams(params);
 
 
-                TextView textViewContent = new TextView(MovieDetailActivity.this);
+                TextView textViewContent = new TextView(MovieDetailActivity
+                        .this);
                 textViewContent.setText(data.get(i).getContent());
                 textViewContent.setLayoutParams(params);
 
@@ -217,7 +252,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     };
 
-    private final LoaderManager.LoaderCallbacks<List<Uri>> youTubeLoaderListener = new LoaderManager.LoaderCallbacks<List<Uri>>() {
+    private final LoaderManager.LoaderCallbacks<List<Uri>>
+            youTubeLoaderListener = new LoaderManager
+            .LoaderCallbacks<List<Uri>>() {
 
         @Override
         public Loader<List<Uri>> onCreateLoader(int id, final Bundle args) {
@@ -241,7 +278,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                     List<Uri> webpage = new ArrayList<>();
 
                     try {
-                        URL trailerRequestUrl = NetworkUtils.buildTrailerOrReviewUrl(movieReturned.getId(), TRAILER);
+                        URL trailerRequestUrl = NetworkUtils
+                                .buildTrailerOrReviewUrl(movieReturned.getId
+                                        (), TRAILER);
                         String jsonTrailerResponse = NetworkUtils
                                 .getResponseFromHttpUrl(trailerRequestUrl);
 
@@ -270,17 +309,21 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onLoadFinished(Loader<List<Uri>> loader, final List<Uri> webpage) {
+        public void onLoadFinished(Loader<List<Uri>> loader, final List<Uri>
+                webpage) {
 
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.tv_movie_trailer_linear_layout);
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id
+                    .tv_movie_trailer_linear_layout);
 
             if (webpage == null) {
-                Snackbar.make(mCoordinatorLayout,"Please check internet connection", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mCoordinatorLayout, "Please check internet " +
+                        "connection", Snackbar.LENGTH_LONG).show();
                 return;
             }
             if (webpage.size() == 0) {
                 TextView textViewError = new TextView(MovieDetailActivity.this);
-                textViewError.setText(getResources().getString(R.string.no_trailer_available));
+                textViewError.setText(getResources().getString(R.string
+                        .no_trailer_available));
                 linearLayout.addView(textViewError);
                 return;
             }
@@ -289,17 +332,21 @@ public class MovieDetailActivity extends AppCompatActivity {
             for (int i = 0; i < webpage.size(); i++) {
                 final Uri uri = webpage.get(i);
                 trailerUri.add(i, new TextView(MovieDetailActivity.this));
-                String trailer_title = getResources().getString(R.string.trailer_prepend) + " " + (i + 1);
+                String trailer_title = getResources().getString(R.string
+                        .trailer_prepend) + " " + (i + 1);
                 trailerUri.get(i).setText(trailer_title);
                 trailerUri.get(i).setTextColor(Color.BLUE);
                 trailerUri.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams params = new LinearLayout
+                        .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
                 params.setMargins(30, 0, 20, 10);
                 trailerUri.get(i).setLayoutParams(params);
 
                 linearLayout.addView(trailerUri.get(i));
-                trailerUri.get(i).setOnClickListener(new View.OnClickListener() {
+                trailerUri.get(i).setOnClickListener(new View.OnClickListener
+                        () {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -331,23 +378,29 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             mMovieOriginalTitleTextView.setText(movieReturned.getTitle());
             mMovieOverviewTextView.setText(movieReturned.getOverview());
-            String rating = getResources().getString(R.string.user_rating) + movieReturned.getVoteAverage();
+            String rating = getResources().getString(R.string.user_rating) +
+                    movieReturned.getVoteAverage();
             mMovieVoteAverageTextView.setText(rating);
-            String releaseDate = getResources().getString(R.string.release_date) + movieReturned.getReleaseDate();
+            String releaseDate = getResources().getString(R.string
+                    .release_date) + movieReturned.getReleaseDate();
             mMovieReleaseDateTextView.setText(releaseDate);
             String BASE_URL = "http://image.tmdb.org/t/p/w185";
-            Picasso.with(this).load(BASE_URL + movieReturned.getPosterPath()).into(mMoviePosterPathImageView);
+            Picasso.with(this).load(BASE_URL + movieReturned.getPosterPath())
+                    .into(mMoviePosterPathImageView);
 
             // start for trailer
             Bundle queryBundle = new Bundle();
 
             LoaderManager loaderManager = getSupportLoaderManager();
-            Loader<String> youtubeTrailerLoader = loaderManager.getLoader(YOUTUBE_TRAILER_QUERY_LOADER);
+            Loader<String> youtubeTrailerLoader = loaderManager.getLoader
+                    (YOUTUBE_TRAILER_QUERY_LOADER);
 
             if (youtubeTrailerLoader == null) {
-                loaderManager.initLoader(YOUTUBE_TRAILER_QUERY_LOADER, queryBundle, youTubeLoaderListener);
+                loaderManager.initLoader(YOUTUBE_TRAILER_QUERY_LOADER,
+                        queryBundle, youTubeLoaderListener);
             } else {
-                loaderManager.restartLoader(YOUTUBE_TRAILER_QUERY_LOADER, queryBundle, youTubeLoaderListener);
+                loaderManager.restartLoader(YOUTUBE_TRAILER_QUERY_LOADER,
+                        queryBundle, youTubeLoaderListener);
             }
             // end for trailer
 
@@ -360,49 +413,69 @@ public class MovieDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         LoaderManager loaderManager = getSupportLoaderManager();
-        Loader<String> reviewLoader = loaderManager.getLoader(FAVOURITE_MOVIE_LOADER_ID);
+        Loader<String> reviewLoader = loaderManager.getLoader
+                (FAVOURITE_MOVIE_LOADER_ID);
 
         if (reviewLoader == null) {
-            loaderManager.initLoader(FAVOURITE_MOVIE_LOADER_ID, null, favouriteMovieLoaderListener);
+            loaderManager.initLoader(FAVOURITE_MOVIE_LOADER_ID, null,
+                    favouriteMovieLoaderListener);
         } else {
-            loaderManager.restartLoader(FAVOURITE_MOVIE_LOADER_ID, null, favouriteMovieLoaderListener);
+            loaderManager.restartLoader(FAVOURITE_MOVIE_LOADER_ID, null,
+                    favouriteMovieLoaderListener);
         }
     }
 
-    public void onClickAddFavouriteMovie(@SuppressWarnings("UnusedParameters") View view) {
+    public void onClickAddFavouriteMovie(@SuppressWarnings
+                                                 ("UnusedParameters") View
+                                                 view) {
         //add if not already in favourite
 
         if (!mMovieInFavourite) {
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_TITLE, movieReturned.getTitle());
-            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_POSTERPATH, movieReturned.getPosterPath());
-            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_OVERVIEW, movieReturned.getOverview());
-            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_VOTEAVERAGE, movieReturned.getVoteAverage());
-            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_RELEASEDATE, movieReturned.getReleaseDate());
-            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_ID, movieReturned.getId());
+            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry
+                    .COLUMN_TITLE, movieReturned.getTitle());
+            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry
+                    .COLUMN_POSTERPATH, movieReturned.getPosterPath());
+            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry
+                    .COLUMN_OVERVIEW, movieReturned.getOverview());
+            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry
+                    .COLUMN_VOTEAVERAGE, movieReturned.getVoteAverage());
+            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry
+                    .COLUMN_RELEASEDATE, movieReturned.getReleaseDate());
+            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry
+                    .COLUMN_ID, movieReturned.getId());
 
             //insert favourite movie
-            Uri uri = getContentResolver().insert(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI, contentValues);
+            Uri uri = getContentResolver().insert(FavouriteMovieContract
+                    .FavouriteMovieEntry.CONTENT_URI, contentValues);
 
             if (uri != null) {
-                Snackbar.make(mCoordinatorLayout,"Added to favourite", Snackbar.LENGTH_SHORT).show();
-                getSupportLoaderManager().restartLoader(FAVOURITE_MOVIE_LOADER_ID, null, favouriteMovieLoaderListener);
+                Snackbar.make(mCoordinatorLayout, "Added to favourite",
+                        Snackbar.LENGTH_SHORT).show();
+                getSupportLoaderManager().restartLoader
+                        (FAVOURITE_MOVIE_LOADER_ID, null,
+                                favouriteMovieLoaderListener);
             }
 
         } else {
             //lets remove from favourite DB
-            Uri movieIdUri = FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI.buildUpon().appendPath(Integer.toString(movieReturned.getId())).build();
+            Uri movieIdUri = FavouriteMovieContract.FavouriteMovieEntry
+                    .CONTENT_URI.buildUpon().appendPath(Integer.toString
+                            (movieReturned.getId())).build();
             getContentResolver().delete(movieIdUri, null, null);
-            Snackbar.make(mCoordinatorLayout,"Removed from favourite", Snackbar.LENGTH_SHORT).show();
-            getSupportLoaderManager().restartLoader(FAVOURITE_MOVIE_LOADER_ID, null, favouriteMovieLoaderListener);
+            Snackbar.make(mCoordinatorLayout, "Removed from favourite",
+                    Snackbar.LENGTH_SHORT).show();
+            getSupportLoaderManager().restartLoader
+                    (FAVOURITE_MOVIE_LOADER_ID, null,
+                            favouriteMovieLoaderListener);
 
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
         return true;

@@ -1,5 +1,8 @@
 package uk.co.mior.movieapp;
 
+/**
+ * Represents movie reviews
+ */
 public class Reviews {
     private final String author;
     private final String content;

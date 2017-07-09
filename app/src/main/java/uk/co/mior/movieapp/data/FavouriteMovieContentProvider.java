@@ -11,8 +11,12 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static uk.co.mior.movieapp.data.FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME;
+import static uk.co.mior.movieapp.data.FavouriteMovieContract
+        .FavouriteMovieEntry.TABLE_NAME;
 
+/**
+ * Contains CRUD methods
+ */
 public class FavouriteMovieContentProvider extends ContentProvider {
 
     private static final int FAVOURITE_MOVIES = 100;
@@ -25,9 +29,12 @@ public class FavouriteMovieContentProvider extends ContentProvider {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         // directory
-        uriMatcher.addURI(FavouriteMovieContract.AUTHORITY, FavouriteMovieContract.PATH_FAVOURITE_MOVIES, FAVOURITE_MOVIES);
+        uriMatcher.addURI(FavouriteMovieContract.AUTHORITY,
+                FavouriteMovieContract.PATH_FAVOURITE_MOVIES, FAVOURITE_MOVIES);
         // single item
-        uriMatcher.addURI(FavouriteMovieContract.AUTHORITY, FavouriteMovieContract.PATH_FAVOURITE_MOVIES + "/#", FAVOURITE_MOVIE_WITH_ID);
+        uriMatcher.addURI(FavouriteMovieContract.AUTHORITY,
+                FavouriteMovieContract.PATH_FAVOURITE_MOVIES + "/#",
+                FAVOURITE_MOVIE_WITH_ID);
 
         return uriMatcher;
     }
@@ -41,7 +48,9 @@ public class FavouriteMovieContentProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection,
+                        @Nullable String selection, @Nullable String[]
+                                    selectionArgs, @Nullable String sortOrder) {
         final SQLiteDatabase db = mFavouriteMovieDbHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
 
@@ -100,10 +109,13 @@ public class FavouriteMovieContentProvider extends ContentProvider {
                 long id = db.insert(TABLE_NAME, null, values);
                 if (id > 0) {
                     //success
-                    returnUri = ContentUris.withAppendedId(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI, id);
+                    returnUri = ContentUris.withAppendedId
+                            (FavouriteMovieContract.FavouriteMovieEntry
+                                    .CONTENT_URI, id);
 
                 } else {
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                    throw new android.database.SQLException("Failed to insert" +
+                            " row into " + uri);
                 }
                 break;
             default:
@@ -118,7 +130,8 @@ public class FavouriteMovieContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable
+            String[] selectionArgs) {
         final SQLiteDatabase db = mFavouriteMovieDbHelper.getWritableDatabase();
 
         int match = sUriMatcher.match(uri);
@@ -142,7 +155,9 @@ public class FavouriteMovieContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int update(@NonNull Uri uri, @Nullable ContentValues values,
+                      @Nullable String selection, @Nullable String[]
+                                  selectionArgs) {
         return 0;
     }
 }

@@ -3,6 +3,9 @@ package uk.co.mior.movieapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Represents the class of returned movie data from server
+ */
 public class MovieReturned implements Parcelable {
 
     private final String title;
@@ -51,7 +54,8 @@ public class MovieReturned implements Parcelable {
         dest.writeInt(id);
     }
 
-    public MovieReturned(String title, String posterPath, String overview, double voteAverage, String releaseDate, int id) {
+    public MovieReturned(String title, String posterPath, String overview,
+                         double voteAverage, String releaseDate, int id) {
         this.title = title;
         this.posterPath = posterPath;
         this.overview = overview;
@@ -69,7 +73,8 @@ public class MovieReturned implements Parcelable {
         this.id = in.readInt();
     }
 
-    public static final Creator<MovieReturned> CREATOR = new Creator<MovieReturned>() {
+    public static final Creator<MovieReturned> CREATOR = new
+            Creator<MovieReturned>() {
         @Override
         public MovieReturned createFromParcel(Parcel in) {
             return new MovieReturned(in);

@@ -36,9 +36,12 @@ import uk.co.mior.movieapp.data.FavouriteMovieContract;
 import uk.co.mior.movieapp.utilities.MovieJsonUtils;
 import uk.co.mior.movieapp.utilities.NetworkUtils;
 
-
-public class MainActivity extends AppCompatActivity implements MovieRecyclerViewAdapter.ListItemClickListener,
-        AdapterView.OnItemSelectedListener {
+/**
+ * MainActivity is the entrance point of the app
+ */
+public class MainActivity extends AppCompatActivity implements
+        MovieRecyclerViewAdapter.ListItemClickListener, AdapterView
+        .OnItemSelectedListener {
 
     private static final String QUERY_STRING = "";
     private static final String SCROLL_POSITION = "scroll position";
@@ -46,15 +49,20 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private List<MovieReturned> mMovieData;
     private Cursor mFavouriteMovieCursorData;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.rv_movies) RecyclerView mRecyclerView;
+    @BindView(R.id.rv_movies)
+    RecyclerView mRecyclerView;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.tv_error_message_display) TextView mErrorMessageDisplay;
+    @BindView(R.id.tv_error_message_display)
+    TextView mErrorMessageDisplay;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.pb_progress) ProgressBar mProgressBar;
+    @BindView(R.id.pb_progress)
+    ProgressBar mProgressBar;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.coordinatorLayout) CoordinatorLayout mCoordinatorLayout;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout mCoordinatorLayout;
     @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-    @BindView(R.id.swiperefresh) SwipeRefreshLayout mySwipeRefreshLayout;
+    @BindView(R.id.swiperefresh)
+    SwipeRefreshLayout mySwipeRefreshLayout;
     private static final String TAG = "MainActivity";
     private static final int MOVIE_QUERY_LOADER = 22;
     private static final int MOVIE_CURSOR_QUERY_LOADER = 33;
@@ -63,7 +71,9 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private int mRestoredScrollPosition;
     private boolean refresh;
 
-    private final LoaderManager.LoaderCallbacks<Cursor> movieCursorQueryLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
+    private final LoaderManager.LoaderCallbacks<Cursor>
+            movieCursorQueryLoaderListener = new LoaderManager
+            .LoaderCallbacks<Cursor>() {
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
@@ -89,11 +99,13 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 public Cursor loadInBackground() {
                     Log.d(TAG, "loadInBackground: method called for cursor");
                     try {
-                        return getContentResolver().query(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI,
-                                null,
-                                null,
-                                null,
-                                null);
+                        return getContentResolver().query
+                                (FavouriteMovieContract.FavouriteMovieEntry
+                                                .CONTENT_URI,
+                                        null,
+                                        null,
+                                        null,
+                                        null);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return null;
@@ -121,14 +133,19 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 List<MovieReturned> temp = new ArrayList<>();
                 do {
                     String title = data.getString(data.getColumnIndex("title"));
-                    String posterPath = data.getString(data.getColumnIndex("posterPath"));
-                    String overview = data.getString(data.getColumnIndex("overview"));
-                    String releaseDate = data.getString(data.getColumnIndex("releaseDate"));
-                    double voteAverage = data.getDouble(data.getColumnIndex("voteAverage"));
+                    String posterPath = data.getString(data.getColumnIndex
+                            ("posterPath"));
+                    String overview = data.getString(data.getColumnIndex
+                            ("overview"));
+                    String releaseDate = data.getString(data.getColumnIndex
+                            ("releaseDate"));
+                    double voteAverage = data.getDouble(data.getColumnIndex
+                            ("voteAverage"));
                     int id = data.getInt(data.getColumnIndex("id"));
 
                     // create object for each data row
-                    temp.add(i, new MovieReturned(title, posterPath, overview, voteAverage, releaseDate, id));
+                    temp.add(i, new MovieReturned(title, posterPath,
+                            overview, voteAverage, releaseDate, id));
                     i++;
                 } while (data.moveToNext());
 
@@ -156,10 +173,13 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
     };
 
-    private final LoaderManager.LoaderCallbacks<List<MovieReturned>> movieQueryLoaderListener = new LoaderManager.LoaderCallbacks<List<MovieReturned>>() {
+    private final LoaderManager.LoaderCallbacks<List<MovieReturned>>
+            movieQueryLoaderListener = new LoaderManager
+            .LoaderCallbacks<List<MovieReturned>>() {
 
         @Override
-        public Loader<List<MovieReturned>> onCreateLoader(int id, final Bundle args) {
+        public Loader<List<MovieReturned>> onCreateLoader(int id, final
+        Bundle args) {
             return new AsyncTaskLoader<List<MovieReturned>>(MainActivity.this) {
 
                 @Override
@@ -181,11 +201,13 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 @Override
                 public List<MovieReturned> loadInBackground() {
                     String searchQueryString = args.getString(QUERY_STRING);
-                    if (searchQueryString == null || TextUtils.isEmpty(searchQueryString)) {
+                    if (searchQueryString == null || TextUtils.isEmpty
+                            (searchQueryString)) {
                         return null;
                     }
                     try {
-                        URL movieRequestUrl = NetworkUtils.buildUrl(searchQueryString);
+                        URL movieRequestUrl = NetworkUtils.buildUrl
+                                (searchQueryString);
                         String jsonMovieResponse = NetworkUtils
                                 .getResponseFromHttpUrl(movieRequestUrl);
 
@@ -206,7 +228,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         }
 
         @Override
-        public void onLoadFinished(Loader<List<MovieReturned>> loader, List<MovieReturned> result) {
+        public void onLoadFinished(Loader<List<MovieReturned>> loader,
+                                   List<MovieReturned> result) {
             Log.d(TAG, "onLoadFinished: method called for MovieReturned");
             mProgressBar.setVisibility(View.INVISIBLE);
             mySwipeRefreshLayout.setRefreshing(false);
@@ -258,12 +281,14 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         spinner = (Spinner) item.getActionView();
         spinner.setOnItemSelectedListener(this);
 
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sort_array, R.layout.spinner_item);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array
+                .sort_array, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
 
-        SharedPreferences sharedPref = getSharedPreferences("SharedPrefFileName", MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences
+                ("SharedPrefFileName", MODE_PRIVATE);
         int spinnerValue = sharedPref.getInt("userSelection", -1);
         if (spinnerValue != -1) {
             // set the selected value of the spinner
@@ -273,7 +298,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int
+            position, long id) {
         Log.d(TAG, "onItemSelected: method called");
 
         mMovieData = null;
@@ -287,26 +313,35 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     }
 
     private void loadLoader(String selectionName, Bundle queryBundle) {
-        Loader<List<MovieReturned>> movieReturnedLoader = getSupportLoaderManager().getLoader(MOVIE_QUERY_LOADER);
-        Loader<Cursor> cursorLoader = getSupportLoaderManager().getLoader(MOVIE_CURSOR_QUERY_LOADER);
+        Loader<List<MovieReturned>> movieReturnedLoader =
+                getSupportLoaderManager().getLoader(MOVIE_QUERY_LOADER);
+        Loader<Cursor> cursorLoader = getSupportLoaderManager().getLoader
+                (MOVIE_CURSOR_QUERY_LOADER);
 
         if (selectionName.equalsIgnoreCase(getString(R.string.my_favourite))) {
             if (movieReturnedLoader != null) {
                 getSupportLoaderManager().destroyLoader(MOVIE_QUERY_LOADER);
             }
             if (cursorLoader == null) {
-                getSupportLoaderManager().initLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
+                getSupportLoaderManager().initLoader
+                        (MOVIE_CURSOR_QUERY_LOADER, queryBundle,
+                                movieCursorQueryLoaderListener);
             } else {
-                getSupportLoaderManager().restartLoader(MOVIE_CURSOR_QUERY_LOADER, queryBundle, movieCursorQueryLoaderListener);
+                getSupportLoaderManager().restartLoader
+                        (MOVIE_CURSOR_QUERY_LOADER, queryBundle,
+                                movieCursorQueryLoaderListener);
             }
         } else {
             if (cursorLoader != null) {
-                getSupportLoaderManager().destroyLoader(MOVIE_CURSOR_QUERY_LOADER);
+                getSupportLoaderManager().destroyLoader
+                        (MOVIE_CURSOR_QUERY_LOADER);
             }
             if (movieReturnedLoader == null) {
-                getSupportLoaderManager().initLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
+                getSupportLoaderManager().initLoader(MOVIE_QUERY_LOADER,
+                        queryBundle, movieQueryLoaderListener);
             } else {
-                getSupportLoaderManager().restartLoader(MOVIE_QUERY_LOADER, queryBundle, movieQueryLoaderListener);
+                getSupportLoaderManager().restartLoader(MOVIE_QUERY_LOADER,
+                        queryBundle, movieQueryLoaderListener);
             }
         }
     }
@@ -316,19 +351,24 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         super.onSaveInstanceState(outState);
 
         int userChoice = spinner.getSelectedItemPosition();
-        SharedPreferences sharedPref = getSharedPreferences("SharedPrefFileName", 0);
+        SharedPreferences sharedPref = getSharedPreferences
+                ("SharedPrefFileName", 0);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         prefEditor.putInt("userSelection", userChoice);
         prefEditor.apply();
 
         try {
             //get the index of first visible item
-            StaggeredGridLayoutManager layoutManager = ((StaggeredGridLayoutManager) mRecyclerView.getLayoutManager());
-            int[] firstVisibleItems = layoutManager.findFirstVisibleItemPositions(null);
+            StaggeredGridLayoutManager layoutManager = (
+                    (StaggeredGridLayoutManager) mRecyclerView
+                            .getLayoutManager());
+            int[] firstVisibleItems = layoutManager
+                    .findFirstVisibleItemPositions(null);
 
             outState.putInt(SCROLL_POSITION, firstVisibleItems[0]);
 
-            Log.d(TAG, "onSaveInstanceState: method called: first item index " + firstVisibleItems[0]);
+            Log.d(TAG, "onSaveInstanceState: method called: first item index " +
+                    "" + firstVisibleItems[0]);
         } catch (Exception e) {
             showErrorMessage();
         }
@@ -340,7 +380,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         Log.d(TAG, "onRestoreInstanceState: method called");
 
         try {
-            mRestoredScrollPosition = savedInstanceState.getInt(SCROLL_POSITION);
+            mRestoredScrollPosition = savedInstanceState.getInt
+                    (SCROLL_POSITION);
         } catch (Exception e) {
             showErrorMessage();
         }
@@ -372,7 +413,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
         mAdapter = new MovieRecyclerViewAdapter(this, null, this);
 
-        mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout
+                .OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refresh = true;
@@ -401,14 +443,17 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
     private void showErrorMessage() {
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
-        mErrorMessageDisplay.setText(getResources().getString(R.string.internet_error));
+        mErrorMessageDisplay.setText(getResources().getString(R.string
+                .internet_error));
         mRecyclerView.setVisibility(View.INVISIBLE);
-        Snackbar.make(mCoordinatorLayout,"Please check internet connection", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(mCoordinatorLayout, "Please check internet connection",
+                Snackbar.LENGTH_LONG).show();
         Log.d(TAG, "showErrorMessage: is shown");
     }
 
     private void showFavouriteMovieErrorMessage() {
-        mErrorMessageDisplay.setText(getResources().getString(R.string.no_result));
+        mErrorMessageDisplay.setText(getResources().getString(R.string
+                .no_result));
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.INVISIBLE);
         Log.d(TAG, "showErrorMessage: is shown");
@@ -418,10 +463,13 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         int numberOfColumnsPortrait = 2;
         int numberOfColumnsLandscape = 3;
 
-        if (MainActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(numberOfColumnsPortrait, 1));
+        if (MainActivity.this.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT) {
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager
+                    (numberOfColumnsPortrait, 1));
         } else {
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(numberOfColumnsLandscape, 1));
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager
+                    (numberOfColumnsLandscape, 1));
         }
     }
 
@@ -430,9 +478,11 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         String placeholder = "";
         if (selectedItem.equalsIgnoreCase(getString(R.string.most_popular))) {
             placeholder = "popular";
-        } else if (selectedItem.equalsIgnoreCase(getString(R.string.top_rated))) {
+        } else if (selectedItem.equalsIgnoreCase(getString(R.string
+                .top_rated))) {
             placeholder = "top_rated";
-        } else if (selectedItem.equalsIgnoreCase(getString(R.string.my_favourite))) {
+        } else if (selectedItem.equalsIgnoreCase(getString(R.string
+                .my_favourite))) {
             placeholder = "my favourite";
         } else {
             showErrorMessage();

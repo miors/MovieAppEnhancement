@@ -12,7 +12,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
+/**
+ * Adapter that connects viewholder to recyclerview
+ */
+public class MovieRecyclerViewAdapter extends RecyclerView
+        .Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
 
     private List<MovieReturned> mData = new ArrayList<>();
     final private LayoutInflater mInflater;
@@ -22,7 +26,9 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         mData = data;
     }
 
-    public MovieRecyclerViewAdapter(Context context, @SuppressWarnings("SameParameterValue") List<MovieReturned> mData, ListItemClickListener listener) {
+    public MovieRecyclerViewAdapter(Context context, @SuppressWarnings
+            ("SameParameterValue") List<MovieReturned> mData,
+                                    ListItemClickListener listener) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = mData;
         this.mOnClickListener = listener;
@@ -39,7 +45,8 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         MovieReturned movieData = mData.get(position);
         Context context = holder.mMovieItem.getContext();
         String BASE_URL = "http://image.tmdb.org/t/p/w185";
-        Picasso.with(context).load(BASE_URL + movieData.getPosterPath()).into(holder.mMovieItem);
+        Picasso.with(context).load(BASE_URL + movieData.getPosterPath()).into
+                (holder.mMovieItem);
     }
 
     @Override
@@ -47,7 +54,8 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         return mData.size();
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements
+            View.OnClickListener {
         private final ImageView mMovieItem;
 
         public MovieViewHolder(View itemView) {
