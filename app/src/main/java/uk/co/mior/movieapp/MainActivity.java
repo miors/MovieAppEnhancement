@@ -142,10 +142,12 @@ public class MainActivity extends AppCompatActivity implements
                     double voteAverage = data.getDouble(data.getColumnIndex
                             ("voteAverage"));
                     int id = data.getInt(data.getColumnIndex("id"));
+                    String backdropPath = data.getString(data.getColumnIndex
+                            ("backdropPath"));
 
                     // create object for each data row
                     temp.add(i, new MovieReturned(title, posterPath,
-                            overview, voteAverage, releaseDate, id));
+                            overview, voteAverage, releaseDate, id, backdropPath));
                     i++;
                 } while (data.moveToNext());
 

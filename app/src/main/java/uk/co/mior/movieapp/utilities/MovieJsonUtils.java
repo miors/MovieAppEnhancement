@@ -64,9 +64,10 @@ public class MovieJsonUtils {
             double voteAverage = eachMovie.getDouble("vote_average");
             String releaseDate = eachMovie.getString("release_date");
             int id = eachMovie.getInt("id");
+            String backdropPath = eachMovie.getString("backdrop_path");
 
             parsedMovieData.add(i, new MovieReturned(title, posterPath,
-                    overview, voteAverage, releaseDate, id));
+                    overview, voteAverage, releaseDate, id, backdropPath));
         }
         return parsedMovieData;
     }

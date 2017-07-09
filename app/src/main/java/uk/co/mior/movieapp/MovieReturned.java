@@ -14,6 +14,7 @@ public class MovieReturned implements Parcelable {
     private final double voteAverage;
     private final String releaseDate;
     private final int id;
+    private final String backdropPath;
 
     public String getTitle() {
         return title;
@@ -39,6 +40,10 @@ public class MovieReturned implements Parcelable {
         return id;
     }
 
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -52,16 +57,19 @@ public class MovieReturned implements Parcelable {
         dest.writeDouble(voteAverage);
         dest.writeString(releaseDate);
         dest.writeInt(id);
+        dest.writeString(backdropPath);
     }
 
     public MovieReturned(String title, String posterPath, String overview,
-                         double voteAverage, String releaseDate, int id) {
+                         double voteAverage, String releaseDate, int id,
+                         String backdropPath) {
         this.title = title;
         this.posterPath = posterPath;
         this.overview = overview;
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
         this.id = id;
+        this.backdropPath = backdropPath;
     }
 
     private MovieReturned(Parcel in) {
@@ -71,6 +79,7 @@ public class MovieReturned implements Parcelable {
         this.voteAverage = in.readDouble();
         this.releaseDate = in.readString();
         this.id = in.readInt();
+        this.backdropPath = in.readString();
     }
 
     public static final Creator<MovieReturned> CREATOR = new

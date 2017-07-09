@@ -28,6 +28,7 @@ public class FavouriteMovieContract {
         public static final String COLUMN_VOTEAVERAGE = "voteAverage";
         public static final String COLUMN_RELEASEDATE = "releaseDate";
         public static final String COLUMN_ID = "id";
+        public static final String COLUMN_BACKDROPPATH = "backdropPath";
     }
 
 }

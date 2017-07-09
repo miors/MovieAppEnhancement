@@ -17,7 +17,7 @@ class FavouriteMovieDbHelper extends SQLiteOpenHelper {
 
     // If you change the database scheme, you must increment the database
     // version
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
 
     public FavouriteMovieDbHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -35,7 +35,8 @@ class FavouriteMovieDbHelper extends SQLiteOpenHelper {
                 FavouriteMovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL, " +
                 FavouriteMovieEntry.COLUMN_VOTEAVERAGE + " REAL NOT NULL, " +
                 FavouriteMovieEntry.COLUMN_RELEASEDATE + " TEXT NOT NULL, " +
-                FavouriteMovieEntry.COLUMN_ID + " INTEGER NOT NULL);";
+                FavouriteMovieEntry.COLUMN_ID + " INTEGER NOT NULL, " +
+                FavouriteMovieEntry.COLUMN_BACKDROPPATH + " TEXT NOT NULL);";
 
         db.execSQL(CREATE_TABLE);
     }
@@ -54,8 +55,16 @@ class FavouriteMovieDbHelper extends SQLiteOpenHelper {
                 + FavouriteMovieEntry.TABLE_NAME + " ADD COLUMN " +
                 FavouriteMovieEntry.COLUMN_ID + " INTEGER NOT NULL);";
 
+        final String ALTER_TABLE_2 = "ALTER TABLE "
+                + FavouriteMovieEntry.TABLE_NAME + " ADD COLUMN " +
+                FavouriteMovieEntry.COLUMN_BACKDROPPATH + " TEXT NOT NULL);";
+
         if (oldVersion < 2) {
             db.execSQL(ALTER_TABLE_1);
+        }
+
+        if (oldVersion < 3) {
+            db.execSQL(ALTER_TABLE_2);
         }
     }
 }

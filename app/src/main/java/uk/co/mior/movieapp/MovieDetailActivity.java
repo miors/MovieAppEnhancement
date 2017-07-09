@@ -385,7 +385,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .release_date) + movieReturned.getReleaseDate();
             mMovieReleaseDateTextView.setText(releaseDate);
             String BASE_URL = "http://image.tmdb.org/t/p/w185";
-            Picasso.with(this).load(BASE_URL + movieReturned.getPosterPath())
+            Picasso.with(this).load(BASE_URL + movieReturned.getBackdropPath())
                     .into(mMoviePosterPathImageView);
 
             // start for trailer
@@ -445,6 +445,8 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .COLUMN_RELEASEDATE, movieReturned.getReleaseDate());
             contentValues.put(FavouriteMovieContract.FavouriteMovieEntry
                     .COLUMN_ID, movieReturned.getId());
+            contentValues.put(FavouriteMovieContract.FavouriteMovieEntry
+                    .COLUMN_BACKDROPPATH, movieReturned.getBackdropPath());
 
             //insert favourite movie
             Uri uri = getContentResolver().insert(FavouriteMovieContract
