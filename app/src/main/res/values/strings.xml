@@ -8,13 +8,13 @@
     <string name="spinner_title">Spinner</string>
     <string name="movie_overview">Movie Overview</string>
     <string name="average_vote">Average Vote</string>
-    <string name="reviews">Touch Here To Read Reviews:</string>
+    <string name="reviews">Touch Here To Read Reviews</string>
     <string name="MovieDetail">Movie Detail</string>
     <string name="internet_error">Possible intenet connection issue!</string>
     <string name="no_result">No result to display</string>
     <string name="no_review_available">No review available</string>
     <string name="no_trailer_available">No trailer available</string>
-    <string name="movie_trailer_header">Trailers:</string>
+    <string name="movie_trailer_header">Trailers</string>
     <string name="menu_refresh">Refresh</string>
     <string name="trailer_prepend">Trailer</string>
     <string name="most_popular">Most Popular</string>

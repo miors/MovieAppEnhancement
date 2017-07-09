@@ -147,7 +147,8 @@ public class MainActivity extends AppCompatActivity implements
 
                     // create object for each data row
                     temp.add(i, new MovieReturned(title, posterPath,
-                            overview, voteAverage, releaseDate, id, backdropPath));
+                            overview, voteAverage, releaseDate, id,
+                            backdropPath));
                     i++;
                 } while (data.moveToNext());
 

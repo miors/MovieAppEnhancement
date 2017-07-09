@@ -84,14 +84,14 @@ public class MovieReturned implements Parcelable {
 
     public static final Creator<MovieReturned> CREATOR = new
             Creator<MovieReturned>() {
-        @Override
-        public MovieReturned createFromParcel(Parcel in) {
-            return new MovieReturned(in);
-        }
+                @Override
+                public MovieReturned createFromParcel(Parcel in) {
+                    return new MovieReturned(in);
+                }
 
-        @Override
-        public MovieReturned[] newArray(int size) {
-            return new MovieReturned[size];
-        }
-    };
+                @Override
+                public MovieReturned[] newArray(int size) {
+                    return new MovieReturned[size];
+                }
+            };
 }

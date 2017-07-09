@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -329,6 +330,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
 
             List<TextView> trailerUri = new ArrayList<>();
+            List<ImageView> trailerImage = new ArrayList<>();
             for (int i = 0; i < webpage.size(); i++) {
                 final Uri uri = webpage.get(i);
                 trailerUri.add(i, new TextView(MovieDetailActivity.this));
@@ -336,7 +338,16 @@ public class MovieDetailActivity extends AppCompatActivity {
                         .trailer_prepend) + " " + (i + 1);
                 trailerUri.get(i).setText(trailer_title);
                 trailerUri.get(i).setTextColor(Color.GRAY);
-                trailerUri.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                trailerUri.get(i).setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES
+                        .ICE_CREAM_SANDWICH_MR1) {
+                    trailerUri.get(i).setPaddingRelative(0, 3, 0, 0);
+                }
+
+                trailerImage.add(i, new ImageView(MovieDetailActivity.this));
+                trailerImage.get(i).setImageResource(android.R.drawable
+                        .ic_media_play);
 
                 LinearLayout.LayoutParams params = new LinearLayout
                         .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -344,8 +355,22 @@ public class MovieDetailActivity extends AppCompatActivity {
                 params.setMargins(30, 0, 20, 10);
                 trailerUri.get(i).setLayoutParams(params);
 
-                linearLayout.addView(trailerUri.get(i));
+                LinearLayout l = new LinearLayout(MovieDetailActivity.this);
+                l.setOrientation(LinearLayout.HORIZONTAL);
+                l.addView(trailerUri.get(i));
+                l.addView(trailerImage.get(i));
+                linearLayout.addView(l);
+
                 trailerUri.get(i).setOnClickListener(new View.OnClickListener
+                        () {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                });
+
+                trailerImage.get(i).setOnClickListener(new View.OnClickListener
                         () {
                     @Override
                     public void onClick(View view) {

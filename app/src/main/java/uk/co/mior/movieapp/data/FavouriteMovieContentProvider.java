@@ -50,7 +50,7 @@ public class FavouriteMovieContentProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection,
                         @Nullable String selection, @Nullable String[]
-                                    selectionArgs, @Nullable String sortOrder) {
+                                selectionArgs, @Nullable String sortOrder) {
         final SQLiteDatabase db = mFavouriteMovieDbHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
 
@@ -157,7 +157,7 @@ public class FavouriteMovieContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values,
                       @Nullable String selection, @Nullable String[]
-                                  selectionArgs) {
+                              selectionArgs) {
         return 0;
     }
 }
